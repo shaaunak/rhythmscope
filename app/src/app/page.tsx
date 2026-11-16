@@ -17,6 +17,36 @@ export default function Home() {
     record: "200",
   });
 
+  // Client-safe URL tab deep-linking
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get("tab") as TabKey;
+      if (
+        tabParam &&
+        [
+          "overview",
+          "ecg_explorer",
+          "trustlab",
+          "model_arena",
+          "failure_atlas",
+          "research_report",
+        ].includes(tabParam)
+      ) {
+        setActiveTab(tabParam);
+      }
+    }
+  }, []);
+
+  const handleSelectTab = (tab: TabKey) => {
+    setActiveTab(tab);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("tab", tab);
+      window.history.replaceState(null, "", url.toString());
+    }
+  };
+
   const handleNavigateToExplorer = (recordId: string, sampleIndex: number) => {
     setExplorerTarget({ record: recordId, sample: sampleIndex });
     setActiveTab("ecg_explorer");
@@ -33,7 +63,7 @@ export default function Home() {
         {/* Navigation Bar */}
         <Navigation
           activeTab={activeTab}
-          onSelectTab={setActiveTab}
+          onSelectTab={handleSelectTab}
           onOpenReceipt={() => setIsReceiptOpen(true)}
         />
 
