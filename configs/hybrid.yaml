@@ -1,0 +1,23 @@
+model:
+  name: "hybrid_cnn_rr"
+  input_channels: 1
+  input_samples: 252
+  rr_features_dim: 4 # [pre_rr, post_rr, local_rr_avg, rr_ratio]
+  num_classes: 4
+  conv_layers:
+    - { out_channels: 32, kernel_size: 7, stride: 1, padding: 3, pool_size: 2 }
+    - { out_channels: 64, kernel_size: 5, stride: 1, padding: 2, pool_size: 2 }
+    - { out_channels: 128, kernel_size: 3, stride: 1, padding: 1, pool_size: 2 }
+  morphology_embed_dim: 64
+  rr_embed_dim: 32
+  fc_hidden: 64
+  dropout: 0.3
+
+training:
+  batch_size: 128
+  epochs: 25
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  loss: "focal" # focal or weighted_ce
+  focal_gamma: 2.0
+  early_stopping_patience: 6

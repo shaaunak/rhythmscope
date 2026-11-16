@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+.next/
+data/raw/
+data/processed/*.npz
+artifacts/checkpoints/*.pkl
+*.log
+.DS_Store

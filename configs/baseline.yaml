@@ -1,0 +1,14 @@
+random_forest:
+  n_estimators: 150
+  max_depth: 12
+  min_samples_split: 5
+  class_weight: "balanced"
+  random_state: 42
+  features:
+    - "pre_rr"
+    - "post_rr"
+    - "local_rr_avg"
+    - "rr_ratio"
+
+majority:
+  strategy: "most_frequent"

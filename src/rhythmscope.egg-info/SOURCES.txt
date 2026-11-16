@@ -1,0 +1,8 @@
+pyproject.toml
+src/rhythmscope/__init__.py
+src/rhythmscope.egg-info/PKG-INFO
+src/rhythmscope.egg-info/SOURCES.txt
+src/rhythmscope.egg-info/dependency_links.txt
+src/rhythmscope.egg-info/requires.txt
+src/rhythmscope.egg-info/top_level.txt
+src/rhythmscope/data/download.py

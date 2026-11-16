@@ -1,0 +1,50 @@
+dataset:
+  name: "mit-bih-arrhythmia-database"
+  physionet_record_dir: "data/raw"
+  processed_dir: "data/processed"
+  sampling_rate: 360
+  primary_lead: "MLII"
+  fallback_lead: "V1" # or II if MLII is not present in non-standard record
+  window_samples: 252 # ~700 ms window
+  pre_r_samples: 90   # ~250 ms before R-peak
+  post_r_samples: 162 # ~450 ms after R-peak
+
+filtering:
+  type: "butterworth_sos"
+  lowcut: 0.5
+  highcut: 40.0
+  order: 3
+
+splits:
+  # Classical de Chazal partition
+  # Note: Records 201 (DS1) and 202 (DS2) share the same patient!
+  ds1_records: [
+    "101", "106", "108", "109", "112", "114", "115", "116",
+    "118", "119", "122", "124", "201", "203", "205", "207",
+    "208", "209", "215", "220", "223", "230"
+  ]
+  # We hold out specific complete patients from DS1 for validation (never tune on DS2)
+  ds1_val_records: ["115", "119", "208", "223"]
+  
+  ds2_records: [
+    "100", "103", "105", "111", "113", "117", "121", "123",
+    "200", "202", "210", "212", "213", "214", "219", "221",
+    "222", "228", "231", "232", "233", "234"
+  ]
+  # Strict patient-disjoint test excludes record 202 because patient is shared with 201 in DS1
+  ds2_strict_records: [
+    "100", "103", "105", "111", "113", "117", "121", "123",
+    "200", "210", "212", "213", "214", "219", "221",
+    "222", "228", "231", "232", "233", "234"
+  ]
+  # Paced records excluded per AAMI recommendation
+  paced_records: ["102", "104", "107", "217"]
+
+aami_mapping:
+  N: ["N", "L", "R", "e", "j"]
+  S: ["A", "a", "J", "S"]
+  V: ["V", "E"]
+  F: ["F"]
+  Q: ["/", "f", "Q"]
+
+classes: ["N", "S", "V", "F"] # Headline 4-class scheme; Q audited separately
