@@ -37,7 +37,13 @@ export const TrustLabView: React.FC<TrustLabViewProps> = ({
   const [noiseType, setNoiseType] = useState<"bw" | "ma" | "em">("em");
   const [targetSnr, setTargetSnr] = useState<number>(12);
   const [selectedModel, setSelectedModel] = useState<"hybrid" | "waveform_cnn" | "rf">("hybrid");
-  const [viewMode, setViewMode] = useState<"2d" | "3d">("2d");
+  const [viewMode, setViewMode] = useState<"2d" | "3d">(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("mode") === "3d") return "3d";
+    }
+    return "2d";
+  });
 
   const currentBeat = examples[selectedBeatIndex] || examples[0];
   const scenarioKey = `${noiseType}_${targetSnr}db`;

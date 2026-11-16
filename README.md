@@ -3,6 +3,7 @@
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg?logo=python&logoColor=white)](https://python.org)
 [![PyTorch 2.15](https://img.shields.io/badge/PyTorch-2.15-EE4C2C.svg?logo=pytorch&logoColor=white)](https://pytorch.org)
 [![Next.js 14](https://img.shields.io/badge/Next.js-14.2-black.svg?logo=next.js&logoColor=white)](https://nextjs.org)
+[![Three.js 3D](https://img.shields.io/badge/Three.js-3D%20Sculpture-black.svg?logo=three.js&logoColor=white)](https://threejs.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![PhysioNet MIT-BIH](https://img.shields.io/badge/Dataset-MIT--BIH%20Arrhythmia-success.svg)](https://physionet.org/content/mitdb/1.0.0/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -13,11 +14,63 @@
 
 ---
 
-## Visual Preview
+## Interactive Application Walkthrough
 
-![RhythmScope Application Studio](docs/assets/landing_preview.png)
+![RhythmScope Animated Studio Tour](docs/assets/rhythmscope_demo.gif)
 
-*The RhythmScope Research Studio interface: floating multi-layered ECG waveform centerpiece with interactive temporal dial, model performance indicators, and per-class patient-disjoint recall metrics.*
+*A complete tour of the RhythmScope Research Studio: from the floating ECG landing centerpiece and continuous lead browser to 2D/3D noise stress testing, model benchmarking, and the interactive Failure Atlas.*
+
+---
+
+## Visual Studio Tour
+
+### 1. Flagship Overview: "Heartbeats, decoded."
+A floating, luxury multi-layered application frame with an interactive SVG waveform centerpiece, curved temporal scrub dial, and real-time per-class recall lollipop visualization.
+
+![Flagship Overview](docs/assets/screen_overview.png)
+
+---
+
+### 2. TrustLab: 2D Scientific vs. 3D Spatial Waveform Sculpture
+TrustLab allows users to inject realistic recorded noise streams from PhysioNet NSTDB (`bw` baseline wander, `ma` muscle artifact, `em` electrode motion) across 24 dB down to 0 dB SNR, switching seamlessly between high-precision 2D scientific panels and a Three.js 3D spatial waveform sculpture.
+
+#### Interactive 3D Spatial Waveform Sculpture (Three.js)
+*Dimensional ribbon sculpture rendering real clean (teal) vs. corrupted (coral) signals in 3D space with cursor-guided parallax depth and auto-rotation.*
+
+![TrustLab 3D Spatial Waveform](docs/assets/screen_trustlab_3d.png)
+
+#### 2D High-Precision Stacked Panels with Calibrated Abstention
+*Side-by-side clean vs. corrupted traces tracking prediction flips and development-calibrated abstention ($\tau = 0.9073$).*
+
+![TrustLab 2D Scientific Panels](docs/assets/screen_trustlab_2d.png)
+
+---
+
+### 3. Continuous ECG Explorer
+An interactive 360 Hz multi-lead signal browser allowing sample-aligned beat inspection across MIT-BIH recordings, custom lead selection (noting inverted channels like Record 114), and morphology previews.
+
+![ECG Explorer](docs/assets/screen_ecg_explorer.png)
+
+---
+
+### 4. Model Arena & Normalized Benchmark Heatmaps
+Head-to-head comparison between **Hybrid CNN**, **Waveform-Only CNN**, **Random Forest**, and **Majority Baseline** under strict patient-disjoint and canonical historical splits.
+
+![Model Arena](docs/assets/screen_model_arena.png)
+
+---
+
+### 5. Failure Atlas: Where Models Break
+Inspect genuine misclassifications on unseen patients (e.g. Records 200, 203, 231) with shaded aberrant QRS regions, Captum Integrated Gradients attribution bars, and morphological confound insights.
+
+![Failure Atlas](docs/assets/screen_failure_atlas.png)
+
+---
+
+### 6. Research Report & Provenance Pillars
+Quantitative findings across 4 core pillars, complete dataset provenance, and cryptographic SHA-256 checkpoint verification.
+
+![Research Report](docs/assets/screen_research_report.png)
 
 ---
 
@@ -43,7 +96,7 @@ A persistent challenge in automated electrocardiogram (ECG) classification liter
 1. **Random Beat Splitting vs. Patient-Disjoint Partitioning**:  
    When heartbeats from the same recording or patient are randomly shuffled into both training and test sets, models memorize patient-specific morphological quirks (electrode placement, heart geometry, baseline impedance) rather than generalizable arrhythmia signatures. Reported accuracies routinely exceed 99%, but collapse when deployed on new patients.
 2. **The MIT-BIH Record 201 / 202 Overlap**:  
-   In the classical benchmark partition proposed by de Chazal et al. (2004), 22 records form DS1 (training/validation) and 22 records form DS2 (test). However, PhysioNet clinical documentation reveals that **Record 201 (assigned to DS1) and Record 202 (assigned to DS2) originate from the identical human subject**. Consequently, even canonical DS2 evaluations suffer from unseen patient leakage.
+   In the classical benchmark partition proposed by de Chazal et al. (2004), 22 records form DS1 (training/validation) and 22 records form DS2 (test). However, PhysioNet clinical documentation reveals that **Record 201 (assigned to DS1) and Record 202 (assigned to DS2) originate from the identical human subject**. Consequently, canonical DS2 evaluations suffer from unseen patient leakage.
 3. **The RhythmScope Protocol**:  
    RhythmScope enforces a **strict patient-disjoint benchmark** where Record 202 is excluded from test evaluation (21 strictly independent patients, 47,550 test beats), reporting strict patient-disjoint results as primary headline metrics while maintaining the classical 22-record DS2 evaluation for historical paper comparison.
 
@@ -54,8 +107,9 @@ A persistent challenge in automated electrocardiogram (ECG) classification liter
 Instead of delivering another generic predictive dashboard, RhythmScope focuses on model reliability and safety boundaries:
 
 - **TrustLab Real-Noise Stress Testing**: Evaluates checkpoints against real recorded noise streams from the PhysioNet MIT-BIH Noise Stress Test Database (NSTDB)—specifically baseline wander (`bw`), muscle artifact (`ma`), and electrode motion (`em`) calibrated from 24 dB down to 0 dB SNR.
+- **2D & 3D Interactive Waveform Exploration**: Users can toggle between high-precision 2D medical charts and a lightweight Three.js 3D spatial waveform sculpture with real-time cursor parallax.
 - **Calibrated Uncertainty & Selective Abstention**: Temperature scaling ($T = 0.6399$) fitted strictly on a held-out development set reduces Expected Calibration Error (ECE) from 11.76% to 2.11%. A threshold $\tau = 0.9073$ enables the model to selectively abstain on corrupted or ambiguous beats.
-- **Interactive Failure Atlas**: Catalog of actual misclassifications on unseen patients (e.g., Record 200, 203, 231), enabling morphological inspection of false positives and false negatives.
+- **Interactive Failure Atlas**: Catalog of actual misclassifications on unseen patients (e.g., Records 200, 203, 231), enabling morphological inspection of false positives and false negatives.
 - **Captum Feature Attribution**: Saliency attribution through Integrated Gradients reveals which parts of the 252-sample window (P-wave, QRS complex, T-wave) drove the network's prediction.
 - **Auditable Experiment Receipts**: Every metric is bound to a cryptographic SHA-256 checkpoint hash, dataset manifest, and deterministic random seed.
 
@@ -135,33 +189,11 @@ On 21 unseen patients (47,550 total beats), the **Hybrid 1D CNN + RR MLP** achie
 
 ---
 
-## Interactive Application Modules
-
-1. **Overview Dashboard**:
-   - Medcure-inspired aesthetic floating frame with custom typography, responsive grid, and live metric indicators.
-   - Interactive SVG waveform centerpiece with depth echo, callout annotations, and curved radial time dial.
-2. **ECG Explorer**:
-   - Multi-second continuous lead browser for MIT-BIH records.
-   - Sample-precise R-peak annotation overlays and real-time inference prediction markers.
-3. **TrustLab (Noise Stress Testing)**:
-   - Dynamic injection of NSTDB `bw`, `ma`, and `em` noise into selected patient beats.
-   - Paired side-by-side comparison of clean vs corrupted waveforms, output probabilities, and abstention triggers.
-4. **Model Arena**:
-   - Head-to-head comparison between **Hybrid CNN**, **Waveform-Only CNN**, **Random Forest**, and **Majority Baseline**.
-   - Literature benchmark comparison against de Chazal et al. (2004).
-5. **Research Hub**:
-   - **Reliability Passport**: Evaluation status across 4 foundational pillars.
-   - **Failure Atlas**: Real-world misclassifications with morphology analysis.
-   - **Explainability Studio**: Captum Integrated Gradients saliency heatmaps along the heartbeat trace.
-   - **Auditable Receipt**: Cryptographic hashes for all checkpoints, datasets, and configurations.
-
----
-
 ## Technology Stack
 
 - **Machine Learning & Core**: Python 3.12, PyTorch 2.15, SciPy, NumPy, WFDB, scikit-learn, Captum
 - **Backend API**: FastAPI, Uvicorn, Pydantic v2
-- **Frontend Application**: Next.js 14 (App Router), TypeScript, Tailwind CSS, Lucide Icons
+- **Frontend Application**: Next.js 14 (App Router), TypeScript, Tailwind CSS, Three.js (3D Graphics), Framer Motion, Lucide Icons
 - **Evaluation & Verification**: pytest, scikit-learn metrics, headless Chrome rendering
 
 ---
@@ -178,7 +210,7 @@ The project is under **active development**. Completed milestones are verified w
 | **Temperature Calibration & Abstention** | **Completed** | $T = 0.6399$, ECE 2.11%; `reports/calibration_protocol.json` |
 | **PhysioNet NSTDB Noise Stress Benchmark** | **Completed** | 15 scenarios evaluated; `reports/trustlab_metrics.json` |
 | **FastAPI Real-Time Inference Server** | **Completed** | 24/24 tests pass; `api/main.py` live on port 8000 |
-| **Next.js Medcure-Inspired Design Studio** | **Completed** | Static build verified; live on port 3000 |
+| **Next.js Design Studio & 3D Waveform Sculpture** | **Completed** | Three.js 3D companion scene; live on port 3000 |
 | **Cross-Dataset Transfer (INCART 12-Lead)** | *Exploratory* | Lead II audit complete; 86.2% abstention documented |
 | **Multi-Lead Fusion (V1/V5 simultaneously)** | *Planned* | Architecture draft under review in roadmap |
 | **Conformal Prediction Risk Guarantees** | *Planned* | Investigating non-exchangeable conformal bands |
