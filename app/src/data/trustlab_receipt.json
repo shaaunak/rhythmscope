@@ -1,0 +1,29 @@
+{
+  "experiment_id": "TRUSTLAB-NSTDB-20261116",
+  "benchmark_title": "RhythmScope TrustLab: Real-Noise Reliability Benchmark",
+  "dataset": "PhysioNet MIT-BIH Arrhythmia Database (DS2 Strict) + MIT-BIH Noise Stress Test Database (NSTDB)",
+  "noise_sources": {
+    "bw": "PhysioNet NSTDB / bw (Baseline Wander, 650,000 samples @ 360 Hz)",
+    "ma": "PhysioNet NSTDB / ma (Muscle Artifact, 650,000 samples @ 360 Hz)",
+    "em": "PhysioNet NSTDB / em (Electrode Motion, 650,000 samples @ 360 Hz)"
+  },
+  "snr_schedule_db": [
+    24,
+    18,
+    12,
+    6,
+    0
+  ],
+  "calibration_policy": "Development-calibrated Temperature Scaling (T=0.6399) + Selective Classification threshold (tau=0.9073)",
+  "evaluated_beats": 5000,
+  "headline_findings": {
+    "h1_morphology_vs_intervals": "Hybrid CNN significantly outperforms Waveform-only CNN (Macro F1 0.57 vs 0.30 on clean test).",
+    "h2_noise_sensitivity": "Electrode Motion (em) causes the most severe degradation in V-Recall and highest prediction flip rates.",
+    "h3_abstention_effect": "Applying calibrated abstention filters out high-entropy predictions under severe noise, maintaining lower selective risk at the cost of coverage."
+  },
+  "reproducibility": {
+    "command": "python -m rhythmscope.evaluation.noise_stress",
+    "git_commit": "3291fc2",
+    "code_url": "https://github.com/shaaunak/rhythmscope"
+  }
+}

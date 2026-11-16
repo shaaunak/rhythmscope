@@ -1,0 +1,1477 @@
+{
+  "num_records": 48,
+  "lead_configurations": {
+    "MLII/V5": 2,
+    "MLII/V1": 40,
+    "V5/V2": 2,
+    "MLII/V2": 2,
+    "V5/MLII": 1,
+    "MLII/V4": 1
+  },
+  "split_counts": {
+    "DS1_TRAIN": {
+      "N": 38739,
+      "Q": 6,
+      "S": 869,
+      "V": 1879,
+      "F": 28
+    },
+    "DS1_VAL": {
+      "N": 7127,
+      "V": 1909,
+      "F": 387,
+      "S": 75,
+      "Q": 2
+    },
+    "DS2_CLASSICAL": {
+      "N": 44259,
+      "S": 1837,
+      "V": 3221,
+      "Q": 7,
+      "F": 388
+    },
+    "DS2_STRICT": {
+      "N": 42198,
+      "S": 1782,
+      "V": 3202,
+      "Q": 7,
+      "F": 387
+    },
+    "PACED": {
+      "Q": 8028,
+      "N": 506,
+      "V": 227
+    },
+    "TOTAL": {
+      "N": 90631,
+      "S": 2781,
+      "V": 7236,
+      "Q": 8043,
+      "F": 803
+    }
+  },
+  "non_beat_annotations": {
+    "+": 1291,
+    "~": 616,
+    "|": 132,
+    "x": 193,
+    "[": 6,
+    "!": 472,
+    "]": 6,
+    "\"": 437
+  },
+  "patient_overlap_check": {
+    "record_201_partition": "DS1_TRAIN",
+    "record_202_classical_partition": "DS2_CLASSICAL",
+    "record_202_strict_partition": "EXCLUDED",
+    "shared_patient_details": "PhysioNet documents Record 201 and 202 were recorded from the same 68-year-old male subject.",
+    "strict_guarantee": "Record 202 is completely omitted from DS2_STRICT benchmark to guarantee true out-of-subject generalization."
+  },
+  "q_class_audit": {
+    "q_count_ds1_train": 6,
+    "q_count_ds1_val": 2,
+    "q_count_ds2_classical": 7,
+    "q_count_ds2_strict": 7,
+    "q_decision": "After excluding paced recordings (102, 104, 107, 217), class Q consists of negligible unclassifiable/fusion beats (<0.02% of data in DS1). Headline classification targets N, S, V, F; Q beats are audited and documented."
+  },
+  "records": {
+    "100": {
+      "record": "100",
+      "leads": [
+        "MLII",
+        "V5"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2274,
+      "total_beats": 2273,
+      "aami_class_counts": {
+        "N": 2239,
+        "S": 33,
+        "V": 1
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 69,
+        "gender": "M",
+        "medications": [
+          "Aldomet",
+          "Inderal"
+        ]
+      }
+    },
+    "101": {
+      "record": "101",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 1874,
+      "total_beats": 1865,
+      "aami_class_counts": {
+        "N": 1860,
+        "Q": 2,
+        "S": 3
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 75,
+        "gender": "F",
+        "medications": []
+      }
+    },
+    "102": {
+      "record": "102",
+      "leads": [
+        "V5",
+        "V2"
+      ],
+      "mlii_index": null,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2192,
+      "total_beats": 2187,
+      "aami_class_counts": {
+        "Q": 2084,
+        "N": 99,
+        "V": 4
+      },
+      "partitions": [
+        "PACED"
+      ],
+      "demographics": {
+        "age": 84,
+        "gender": "F",
+        "medications": [],
+        "paced": true
+      }
+    },
+    "103": {
+      "record": "103",
+      "leads": [
+        "MLII",
+        "V2"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2091,
+      "total_beats": 2084,
+      "aami_class_counts": {
+        "N": 2082,
+        "S": 2
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 20,
+        "gender": "M",
+        "medications": []
+      }
+    },
+    "104": {
+      "record": "104",
+      "leads": [
+        "V5",
+        "V2"
+      ],
+      "mlii_index": null,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2311,
+      "total_beats": 2229,
+      "aami_class_counts": {
+        "Q": 2064,
+        "N": 163,
+        "V": 2
+      },
+      "partitions": [
+        "PACED"
+      ],
+      "demographics": {
+        "age": 66,
+        "gender": "F",
+        "medications": [],
+        "paced": true
+      }
+    },
+    "105": {
+      "record": "105",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2691,
+      "total_beats": 2572,
+      "aami_class_counts": {
+        "N": 2526,
+        "V": 41,
+        "Q": 5
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 73,
+        "gender": "F",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "106": {
+      "record": "106",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2098,
+      "total_beats": 2027,
+      "aami_class_counts": {
+        "N": 1507,
+        "V": 520
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 24,
+        "gender": "F",
+        "medications": []
+      }
+    },
+    "107": {
+      "record": "107",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2140,
+      "total_beats": 2137,
+      "aami_class_counts": {
+        "Q": 2078,
+        "V": 59
+      },
+      "partitions": [
+        "PACED"
+      ],
+      "demographics": {
+        "age": 63,
+        "gender": "M",
+        "medications": [
+          "Digoxin"
+        ],
+        "paced": true
+      }
+    },
+    "108": {
+      "record": "108",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 1824,
+      "total_beats": 1763,
+      "aami_class_counts": {
+        "N": 1740,
+        "V": 17,
+        "F": 2,
+        "S": 4
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 87,
+        "gender": "F",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "109": {
+      "record": "109",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2535,
+      "total_beats": 2532,
+      "aami_class_counts": {
+        "N": 2492,
+        "F": 2,
+        "V": 38
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 64,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "111": {
+      "record": "111",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2133,
+      "total_beats": 2124,
+      "aami_class_counts": {
+        "N": 2123,
+        "V": 1
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 47,
+        "gender": "F",
+        "medications": [
+          "Digoxin"
+        ]
+      }
+    },
+    "112": {
+      "record": "112",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2550,
+      "total_beats": 2539,
+      "aami_class_counts": {
+        "N": 2537,
+        "S": 2
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 54,
+        "gender": "M",
+        "medications": []
+      }
+    },
+    "113": {
+      "record": "113",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 1796,
+      "total_beats": 1795,
+      "aami_class_counts": {
+        "N": 1789,
+        "S": 6
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 24,
+        "gender": "F",
+        "medications": []
+      }
+    },
+    "114": {
+      "record": "114",
+      "leads": [
+        "V5",
+        "MLII"
+      ],
+      "mlii_index": 1,
+      "lead_reversed": true,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 1890,
+      "total_beats": 1879,
+      "aami_class_counts": {
+        "N": 1820,
+        "V": 43,
+        "S": 12,
+        "F": 4
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 72,
+        "gender": "F",
+        "medications": [],
+        "leads_reversed": true
+      }
+    },
+    "115": {
+      "record": "115",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 1962,
+      "total_beats": 1953,
+      "aami_class_counts": {
+        "N": 1953
+      },
+      "partitions": [
+        "DS1_VAL"
+      ],
+      "demographics": {
+        "age": 39,
+        "gender": "F",
+        "medications": []
+      }
+    },
+    "116": {
+      "record": "116",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2421,
+      "total_beats": 2412,
+      "aami_class_counts": {
+        "N": 2302,
+        "V": 109,
+        "S": 1
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 68,
+        "gender": "M",
+        "medications": [
+          "Digoxin"
+        ]
+      }
+    },
+    "117": {
+      "record": "117",
+      "leads": [
+        "MLII",
+        "V2"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 1539,
+      "total_beats": 1535,
+      "aami_class_counts": {
+        "N": 1534,
+        "S": 1
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 69,
+        "gender": "M",
+        "medications": []
+      }
+    },
+    "118": {
+      "record": "118",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2301,
+      "total_beats": 2278,
+      "aami_class_counts": {
+        "N": 2166,
+        "V": 16,
+        "S": 96
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 69,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "119": {
+      "record": "119",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2094,
+      "total_beats": 1987,
+      "aami_class_counts": {
+        "N": 1543,
+        "V": 444
+      },
+      "partitions": [
+        "DS1_VAL"
+      ],
+      "demographics": {
+        "age": 51,
+        "gender": "F",
+        "medications": []
+      }
+    },
+    "121": {
+      "record": "121",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 1876,
+      "total_beats": 1863,
+      "aami_class_counts": {
+        "N": 1861,
+        "S": 1,
+        "V": 1
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 83,
+        "gender": "F",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "122": {
+      "record": "122",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2479,
+      "total_beats": 2476,
+      "aami_class_counts": {
+        "N": 2476
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 51,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Pronestyl"
+        ]
+      }
+    },
+    "123": {
+      "record": "123",
+      "leads": [
+        "MLII",
+        "V5"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 1519,
+      "total_beats": 1518,
+      "aami_class_counts": {
+        "N": 1515,
+        "V": 3
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 63,
+        "gender": "F",
+        "medications": []
+      }
+    },
+    "124": {
+      "record": "124",
+      "leads": [
+        "MLII",
+        "V4"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 1634,
+      "total_beats": 1619,
+      "aami_class_counts": {
+        "N": 1536,
+        "S": 31,
+        "V": 47,
+        "F": 5
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 77,
+        "gender": "M",
+        "medications": []
+      }
+    },
+    "200": {
+      "record": "200",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2792,
+      "total_beats": 2601,
+      "aami_class_counts": {
+        "V": 826,
+        "N": 1743,
+        "S": 30,
+        "F": 2
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 64,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Pronestyl"
+        ]
+      }
+    },
+    "201": {
+      "record": "201",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2039,
+      "total_beats": 1963,
+      "aami_class_counts": {
+        "N": 1635,
+        "S": 128,
+        "V": 198,
+        "F": 2
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 68,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ],
+        "patient_id": "P201_202"
+      }
+    },
+    "202": {
+      "record": "202",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2146,
+      "total_beats": 2136,
+      "aami_class_counts": {
+        "N": 2061,
+        "V": 19,
+        "S": 55,
+        "F": 1
+      },
+      "partitions": [
+        "DS2_CLASSICAL"
+      ],
+      "demographics": {
+        "age": 68,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ],
+        "patient_id": "P201_202",
+        "shared_with": "201"
+      }
+    },
+    "203": {
+      "record": "203",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 3108,
+      "total_beats": 2980,
+      "aami_class_counts": {
+        "N": 2529,
+        "V": 444,
+        "S": 2,
+        "Q": 4,
+        "F": 1
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 43,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "205": {
+      "record": "205",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2672,
+      "total_beats": 2656,
+      "aami_class_counts": {
+        "N": 2571,
+        "V": 71,
+        "S": 3,
+        "F": 11
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 59,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Pronestyl"
+        ]
+      }
+    },
+    "207": {
+      "record": "207",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2385,
+      "total_beats": 1860,
+      "aami_class_counts": {
+        "N": 1543,
+        "V": 210,
+        "S": 107
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 89,
+        "gender": "F",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "208": {
+      "record": "208",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 3040,
+      "total_beats": 2955,
+      "aami_class_counts": {
+        "F": 373,
+        "V": 992,
+        "N": 1586,
+        "S": 2,
+        "Q": 2
+      },
+      "partitions": [
+        "DS1_VAL"
+      ],
+      "demographics": {
+        "age": 23,
+        "gender": "F",
+        "medications": []
+      }
+    },
+    "209": {
+      "record": "209",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 3052,
+      "total_beats": 3005,
+      "aami_class_counts": {
+        "N": 2621,
+        "S": 383,
+        "V": 1
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 62,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Pronestyl"
+        ]
+      }
+    },
+    "210": {
+      "record": "210",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2685,
+      "total_beats": 2650,
+      "aami_class_counts": {
+        "N": 2423,
+        "V": 195,
+        "F": 10,
+        "S": 22
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 89,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "212": {
+      "record": "212",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2763,
+      "total_beats": 2748,
+      "aami_class_counts": {
+        "N": 2748
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 32,
+        "gender": "F",
+        "medications": []
+      }
+    },
+    "213": {
+      "record": "213",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 3294,
+      "total_beats": 3251,
+      "aami_class_counts": {
+        "N": 2641,
+        "F": 362,
+        "S": 28,
+        "V": 220
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 61,
+        "gender": "M",
+        "medications": []
+      }
+    },
+    "214": {
+      "record": "214",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2297,
+      "total_beats": 2262,
+      "aami_class_counts": {
+        "N": 2003,
+        "V": 256,
+        "Q": 2,
+        "F": 1
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 53,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Pronestyl"
+        ]
+      }
+    },
+    "215": {
+      "record": "215",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 3400,
+      "total_beats": 3363,
+      "aami_class_counts": {
+        "N": 3195,
+        "V": 164,
+        "S": 3,
+        "F": 1
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 81,
+        "gender": "F",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "217": {
+      "record": "217",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2280,
+      "total_beats": 2208,
+      "aami_class_counts": {
+        "Q": 1802,
+        "V": 162,
+        "N": 244
+      },
+      "partitions": [
+        "PACED"
+      ],
+      "demographics": {
+        "age": 65,
+        "gender": "M",
+        "medications": [],
+        "paced": true
+      }
+    },
+    "219": {
+      "record": "219",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2312,
+      "total_beats": 2154,
+      "aami_class_counts": {
+        "N": 2082,
+        "V": 64,
+        "F": 1,
+        "S": 7
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 74,
+        "gender": "M",
+        "medications": []
+      }
+    },
+    "220": {
+      "record": "220",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2069,
+      "total_beats": 2048,
+      "aami_class_counts": {
+        "N": 1954,
+        "S": 94
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 87,
+        "gender": "F",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "221": {
+      "record": "221",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2462,
+      "total_beats": 2427,
+      "aami_class_counts": {
+        "N": 2031,
+        "V": 396
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 83,
+        "gender": "M",
+        "medications": []
+      }
+    },
+    "222": {
+      "record": "222",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2634,
+      "total_beats": 2483,
+      "aami_class_counts": {
+        "N": 2274,
+        "S": 209
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 84,
+        "gender": "F",
+        "medications": [
+          "Digoxin",
+          "Pronestyl"
+        ]
+      }
+    },
+    "223": {
+      "record": "223",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2643,
+      "total_beats": 2605,
+      "aami_class_counts": {
+        "N": 2045,
+        "V": 473,
+        "S": 73,
+        "F": 14
+      },
+      "partitions": [
+        "DS1_VAL"
+      ],
+      "demographics": {
+        "age": 73,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "228": {
+      "record": "228",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2141,
+      "total_beats": 2053,
+      "aami_class_counts": {
+        "N": 1688,
+        "V": 362,
+        "S": 3
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 80,
+        "gender": "F",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "230": {
+      "record": "230",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2466,
+      "total_beats": 2256,
+      "aami_class_counts": {
+        "N": 2255,
+        "V": 1
+      },
+      "partitions": [
+        "DS1_TRAIN"
+      ],
+      "demographics": {
+        "age": 32,
+        "gender": "M",
+        "medications": []
+      }
+    },
+    "231": {
+      "record": "231",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2011,
+      "total_beats": 1571,
+      "aami_class_counts": {
+        "N": 1568,
+        "S": 1,
+        "V": 2
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 72,
+        "gender": "F",
+        "medications": [
+          "Digoxin",
+          "Pronestyl"
+        ]
+      }
+    },
+    "232": {
+      "record": "232",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 1816,
+      "total_beats": 1780,
+      "aami_class_counts": {
+        "N": 398,
+        "S": 1382
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 76,
+        "gender": "F",
+        "medications": []
+      }
+    },
+    "233": {
+      "record": "233",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 3152,
+      "total_beats": 3079,
+      "aami_class_counts": {
+        "V": 831,
+        "N": 2230,
+        "S": 7,
+        "F": 11
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 57,
+        "gender": "M",
+        "medications": [
+          "Digoxin",
+          "Quinidine"
+        ]
+      }
+    },
+    "234": {
+      "record": "234",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "mlii_index": 0,
+      "lead_reversed": false,
+      "fs": 360,
+      "total_samples": 650000,
+      "duration_minutes": 30.09,
+      "total_annotations": 2764,
+      "total_beats": 2753,
+      "aami_class_counts": {
+        "N": 2700,
+        "S": 50,
+        "V": 3
+      },
+      "partitions": [
+        "DS2_CLASSICAL",
+        "DS2_STRICT"
+      ],
+      "demographics": {
+        "age": 56,
+        "gender": "F",
+        "medications": []
+      }
+    }
+  }
+}

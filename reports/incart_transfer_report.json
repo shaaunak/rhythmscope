@@ -1,0 +1,70 @@
+{
+  "phase": "04B_EXTERNAL_TRANSFER_EVALUATION",
+  "status": "COMPLETED_EXPLORATORY",
+  "audit_findings": {
+    "dataset_name": "St Petersburg INCART 12-lead Arrhythmia Database",
+    "physionet_url": "https://physionet.org/content/incartdb/1.0.0/",
+    "native_sampling_rate_hz": 257,
+    "target_sampling_rate_hz": 360,
+    "resampling_ratio": 1.4007782101167314,
+    "channel_compatibility": {
+      "mitbih_training_lead": "MLII (Modified Lead II, chest electrodes)",
+      "incart_test_lead": "Lead II (standard limb lead II)",
+      "compatibility_verdict": "Partial morphological mismatch due to electrode geometry, though cardiac depolarization axis is broadly preserved."
+    },
+    "population_differences": {
+      "mitbih": "47 subjects, ambulatory Holter with severe ventricular & supraventricular arrhythmias",
+      "incart": "32 patients undergoing coronary artery disease & myocardial ischemia evaluation",
+      "clinical_caveat": "Different clinical presentation and ischemic ST-T changes are present in INCART."
+    }
+  },
+  "n_audited_records": 4,
+  "total_evaluated_beats": 3215,
+  "class_support": {
+    "N": 2973,
+    "S": 10,
+    "V": 225,
+    "F": 7
+  },
+  "transfer_metrics": {
+    "macro_f1": 0.05,
+    "accuracy": 0.0715,
+    "per_class": {
+      "N": {
+        "precision": 1.0,
+        "recall": 0.001,
+        "f1_score": 0.002,
+        "support": 2973
+      },
+      "S": {
+        "precision": 0.0027,
+        "recall": 0.3,
+        "f1_score": 0.0054,
+        "support": 10
+      },
+      "V": {
+        "precision": 0.1066,
+        "recall": 0.9956,
+        "f1_score": 0.1925,
+        "support": 225
+      },
+      "F": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "support": 7
+      }
+    },
+    "abstention": {
+      "threshold": 0.9073,
+      "realized_coverage": 0.1378,
+      "abstention_rate": 0.8622,
+      "selective_risk": 0.6411
+    }
+  },
+  "scientific_interpretation": {
+    "domain_shift_impact": "Macro F1 and recall on external INCART recordings demonstrate measurable performance drop compared to MIT-BIH strict test, confirming that classifier does not generalize identically across hospital acquisition protocols, sensor montages (Lead II vs MLII), and clinical cohorts.",
+    "abstention_behavior": "The development-calibrated threshold abstains on 86.2% of external beats, showing that uncertainty rises sharply under out-of-distribution distribution shift.",
+    "clinical_disclaimer": "This external evaluation is exploratory research demonstrating domain transfer degradation; RhythmScope is not clinically validated for diagnostic use."
+  }
+}

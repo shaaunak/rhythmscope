@@ -1,0 +1,905 @@
+{
+  "de_chazal_reference": {
+    "paper": "de Chazal et al. (2004) IEEE TBME",
+    "protocol": "Classical DS1 / DS2 (includes record 202)",
+    "features": "ECG morphology (wavelets/intervals) + RR intervals + Linear Discriminants",
+    "metrics": {
+      "s_sensitivity": 0.759,
+      "s_ppv": 0.385,
+      "v_sensitivity": 0.777,
+      "v_ppv": 0.818
+    }
+  },
+  "classes": [
+    "N",
+    "S",
+    "V",
+    "F"
+  ],
+  "splits": {
+    "classical_ds2": {
+      "majority": {
+        "accuracy": 0.8904,
+        "macro_f1": 0.2355,
+        "weighted_f1": 0.8388,
+        "s_sensitivity": 0.0,
+        "s_ppv": 0.0,
+        "v_sensitivity": 0.0,
+        "v_ppv": 0.0,
+        "per_class": {
+          "N": {
+            "precision": 0.8904,
+            "recall": 1.0,
+            "f1_score": 0.942,
+            "support": 44240
+          },
+          "S": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 1837
+          },
+          "V": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 3220
+          },
+          "F": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 388
+          }
+        },
+        "confusion_matrix": [
+          [
+            44240,
+            0,
+            0,
+            0
+          ],
+          [
+            1837,
+            0,
+            0,
+            0
+          ],
+          [
+            3220,
+            0,
+            0,
+            0
+          ],
+          [
+            388,
+            0,
+            0,
+            0
+          ]
+        ],
+        "normalized_confusion_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "bootstrap_ci": {
+          "macro_f1": {
+            "mean": 0.23569908435762982,
+            "std": 0.00462754216943985,
+            "ci_lower": 0.22574307514772837,
+            "ci_upper": 0.2431407957038112
+          },
+          "s_recall": {
+            "mean": 0.0,
+            "std": 0.0,
+            "ci_lower": 0.0,
+            "ci_upper": 0.0
+          },
+          "v_recall": {
+            "mean": 0.0,
+            "std": 0.0,
+            "ci_lower": 0.0,
+            "ci_upper": 0.0
+          }
+        },
+        "eval_time_seconds": 0.0,
+        "latency_ms": 0.001,
+        "checkpoint_size_kb": 0.1
+      },
+      "random_forest": {
+        "accuracy": 0.8665,
+        "macro_f1": 0.4142,
+        "weighted_f1": 0.8832,
+        "s_sensitivity": 0.2635,
+        "s_ppv": 0.1572,
+        "v_sensitivity": 0.5606,
+        "v_ppv": 0.474,
+        "per_class": {
+          "N": {
+            "precision": 0.9726,
+            "recall": 0.9214,
+            "f1_score": 0.9463,
+            "support": 44240
+          },
+          "S": {
+            "precision": 0.1572,
+            "recall": 0.2635,
+            "f1_score": 0.1969,
+            "support": 1837
+          },
+          "V": {
+            "precision": 0.474,
+            "recall": 0.5606,
+            "f1_score": 0.5137,
+            "support": 3220
+          },
+          "F": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 388
+          }
+        },
+        "confusion_matrix": [
+          [
+            40762,
+            1572,
+            1020,
+            886
+          ],
+          [
+            372,
+            484,
+            981,
+            0
+          ],
+          [
+            390,
+            1023,
+            1805,
+            2
+          ],
+          [
+            386,
+            0,
+            2,
+            0
+          ]
+        ],
+        "normalized_confusion_matrix": [
+          [
+            0.9214,
+            0.0355,
+            0.0231,
+            0.02
+          ],
+          [
+            0.2025,
+            0.2635,
+            0.534,
+            0.0
+          ],
+          [
+            0.1211,
+            0.3177,
+            0.5606,
+            0.0006
+          ],
+          [
+            0.9948,
+            0.0,
+            0.0052,
+            0.0
+          ]
+        ],
+        "bootstrap_ci": {
+          "macro_f1": {
+            "mean": 0.4060994475933303,
+            "std": 0.02371622450548855,
+            "ci_lower": 0.3545042150851188,
+            "ci_upper": 0.4426367538204948
+          },
+          "s_recall": {
+            "mean": 0.33926576463209623,
+            "std": 0.13118663314219278,
+            "ci_lower": 0.21185011319871402,
+            "ci_upper": 0.6152695035460992
+          },
+          "v_recall": {
+            "mean": 0.557188498321063,
+            "std": 0.08183980906578035,
+            "ci_lower": 0.38556807975101315,
+            "ci_upper": 0.7038440968043856
+          }
+        },
+        "eval_time_seconds": 0.3,
+        "latency_ms": 14.331,
+        "checkpoint_size_kb": 13719.2
+      },
+      "waveform_cnn": {
+        "accuracy": 0.7374,
+        "macro_f1": 0.299,
+        "weighted_f1": 0.7727,
+        "s_sensitivity": 0.0,
+        "s_ppv": 0.0,
+        "v_sensitivity": 0.9596,
+        "v_ppv": 0.2169,
+        "per_class": {
+          "N": {
+            "precision": 0.9467,
+            "recall": 0.7583,
+            "f1_score": 0.8421,
+            "support": 44240
+          },
+          "S": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 1837
+          },
+          "V": {
+            "precision": 0.2169,
+            "recall": 0.9596,
+            "f1_score": 0.3538,
+            "support": 3220
+          },
+          "F": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 388
+          }
+        },
+        "confusion_matrix": [
+          [
+            33548,
+            0,
+            10692,
+            0
+          ],
+          [
+            1746,
+            0,
+            91,
+            0
+          ],
+          [
+            130,
+            0,
+            3090,
+            0
+          ],
+          [
+            13,
+            0,
+            375,
+            0
+          ]
+        ],
+        "normalized_confusion_matrix": [
+          [
+            0.7583,
+            0.0,
+            0.2417,
+            0.0
+          ],
+          [
+            0.9505,
+            0.0,
+            0.0495,
+            0.0
+          ],
+          [
+            0.0404,
+            0.0,
+            0.9596,
+            0.0
+          ],
+          [
+            0.0335,
+            0.0,
+            0.9665,
+            0.0
+          ]
+        ],
+        "bootstrap_ci": {
+          "macro_f1": {
+            "mean": 0.2963804534899089,
+            "std": 0.0330039496379988,
+            "ci_lower": 0.23332480497633024,
+            "ci_upper": 0.35909603255858
+          },
+          "s_recall": {
+            "mean": 0.0,
+            "std": 0.0,
+            "ci_lower": 0.0,
+            "ci_upper": 0.0
+          },
+          "v_recall": {
+            "mean": 0.9570189011061147,
+            "std": 0.0319420379176051,
+            "ci_lower": 0.8706391402714933,
+            "ci_upper": 0.9963926999763629
+          }
+        },
+        "eval_time_seconds": 4.3,
+        "latency_ms": 0.648,
+        "checkpoint_size_kb": 181.3
+      },
+      "hybrid_cnn": {
+        "accuracy": 0.9246,
+        "macro_f1": 0.5631,
+        "weighted_f1": 0.9241,
+        "s_sensitivity": 0.54,
+        "s_ppv": 0.4154,
+        "v_sensitivity": 0.8711,
+        "v_ppv": 0.7826,
+        "per_class": {
+          "N": {
+            "precision": 0.9641,
+            "recall": 0.9526,
+            "f1_score": 0.9583,
+            "support": 44240
+          },
+          "S": {
+            "precision": 0.4154,
+            "recall": 0.54,
+            "f1_score": 0.4696,
+            "support": 1837
+          },
+          "V": {
+            "precision": 0.7826,
+            "recall": 0.8711,
+            "f1_score": 0.8245,
+            "support": 3220
+          },
+          "F": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 388
+          }
+        },
+        "confusion_matrix": [
+          [
+            42143,
+            1375,
+            722,
+            0
+          ],
+          [
+            794,
+            992,
+            51,
+            0
+          ],
+          [
+            394,
+            21,
+            2805,
+            0
+          ],
+          [
+            382,
+            0,
+            6,
+            0
+          ]
+        ],
+        "normalized_confusion_matrix": [
+          [
+            0.9526,
+            0.0311,
+            0.0163,
+            0.0
+          ],
+          [
+            0.4322,
+            0.54,
+            0.0278,
+            0.0
+          ],
+          [
+            0.1224,
+            0.0065,
+            0.8711,
+            0.0
+          ],
+          [
+            0.9845,
+            0.0,
+            0.0155,
+            0.0
+          ]
+        ],
+        "bootstrap_ci": {
+          "macro_f1": {
+            "mean": 0.5464648077930634,
+            "std": 0.03799254278619569,
+            "ci_lower": 0.45930753827037435,
+            "ci_upper": 0.6038583691044126
+          },
+          "s_recall": {
+            "mean": 0.5704443898445798,
+            "std": 0.11472705129563016,
+            "ci_lower": 0.35963064459096866,
+            "ci_upper": 0.8251110507105691
+          },
+          "v_recall": {
+            "mean": 0.8637692638177559,
+            "std": 0.04709856744704599,
+            "ci_lower": 0.7397831219643821,
+            "ci_upper": 0.9442655062157993
+          }
+        },
+        "eval_time_seconds": 2.49,
+        "latency_ms": 0.675,
+        "checkpoint_size_kb": 212.2
+      }
+    },
+    "strict_patient_disjoint": {
+      "majority": {
+        "accuracy": 0.8871,
+        "macro_f1": 0.235,
+        "weighted_f1": 0.834,
+        "s_sensitivity": 0.0,
+        "s_ppv": 0.0,
+        "v_sensitivity": 0.0,
+        "v_ppv": 0.0,
+        "per_class": {
+          "N": {
+            "precision": 0.8871,
+            "recall": 1.0,
+            "f1_score": 0.9402,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 387
+          }
+        },
+        "confusion_matrix": [
+          [
+            42180,
+            0,
+            0,
+            0
+          ],
+          [
+            1782,
+            0,
+            0,
+            0
+          ],
+          [
+            3201,
+            0,
+            0,
+            0
+          ],
+          [
+            387,
+            0,
+            0,
+            0
+          ]
+        ],
+        "normalized_confusion_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "bootstrap_ci": {
+          "macro_f1": {
+            "mean": 0.2347800943423327,
+            "std": 0.004964359383780353,
+            "ci_lower": 0.22247915989767833,
+            "ci_upper": 0.2422020226902686
+          },
+          "s_recall": {
+            "mean": 0.0,
+            "std": 0.0,
+            "ci_lower": 0.0,
+            "ci_upper": 0.0
+          },
+          "v_recall": {
+            "mean": 0.0,
+            "std": 0.0,
+            "ci_lower": 0.0,
+            "ci_upper": 0.0
+          }
+        },
+        "eval_time_seconds": 0.0,
+        "latency_ms": 0.001,
+        "checkpoint_size_kb": 0.1
+      },
+      "random_forest": {
+        "accuracy": 0.8728,
+        "macro_f1": 0.4198,
+        "weighted_f1": 0.8864,
+        "s_sensitivity": 0.2548,
+        "s_ppv": 0.1681,
+        "v_sensitivity": 0.5589,
+        "v_ppv": 0.4965,
+        "per_class": {
+          "N": {
+            "precision": 0.9717,
+            "recall": 0.9308,
+            "f1_score": 0.9508,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.1681,
+            "recall": 0.2548,
+            "f1_score": 0.2025,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.4965,
+            "recall": 0.5589,
+            "f1_score": 0.5259,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 387
+          }
+        },
+        "confusion_matrix": [
+          [
+            39260,
+            1225,
+            856,
+            839
+          ],
+          [
+            372,
+            454,
+            956,
+            0
+          ],
+          [
+            388,
+            1022,
+            1789,
+            2
+          ],
+          [
+            385,
+            0,
+            2,
+            0
+          ]
+        ],
+        "normalized_confusion_matrix": [
+          [
+            0.9308,
+            0.029,
+            0.0203,
+            0.0199
+          ],
+          [
+            0.2088,
+            0.2548,
+            0.5365,
+            0.0
+          ],
+          [
+            0.1212,
+            0.3193,
+            0.5589,
+            0.0006
+          ],
+          [
+            0.9948,
+            0.0,
+            0.0052,
+            0.0
+          ]
+        ],
+        "bootstrap_ci": {
+          "macro_f1": {
+            "mean": 0.41729598130345713,
+            "std": 0.019321419007509246,
+            "ci_lower": 0.37634147465251416,
+            "ci_upper": 0.45293211854943083
+          },
+          "s_recall": {
+            "mean": 0.33266450430962097,
+            "std": 0.13440767248023164,
+            "ci_lower": 0.20509052278397136,
+            "ci_upper": 0.6311927655677655
+          },
+          "v_recall": {
+            "mean": 0.5731510537828752,
+            "std": 0.07332939983450984,
+            "ci_lower": 0.42492166759352934,
+            "ci_upper": 0.7180024084152861
+          }
+        },
+        "eval_time_seconds": 0.16,
+        "latency_ms": 14.259,
+        "checkpoint_size_kb": 13719.2
+      },
+      "waveform_cnn": {
+        "accuracy": 0.7369,
+        "macro_f1": 0.3011,
+        "weighted_f1": 0.7706,
+        "s_sensitivity": 0.0,
+        "s_ppv": 0.0,
+        "v_sensitivity": 0.9594,
+        "v_ppv": 0.2239,
+        "per_class": {
+          "N": {
+            "precision": 0.9449,
+            "recall": 0.7579,
+            "f1_score": 0.8411,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.2239,
+            "recall": 0.9594,
+            "f1_score": 0.3631,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 387
+          }
+        },
+        "confusion_matrix": [
+          [
+            31970,
+            0,
+            10210,
+            0
+          ],
+          [
+            1723,
+            0,
+            59,
+            0
+          ],
+          [
+            130,
+            0,
+            3071,
+            0
+          ],
+          [
+            13,
+            0,
+            374,
+            0
+          ]
+        ],
+        "normalized_confusion_matrix": [
+          [
+            0.7579,
+            0.0,
+            0.2421,
+            0.0
+          ],
+          [
+            0.9669,
+            0.0,
+            0.0331,
+            0.0
+          ],
+          [
+            0.0406,
+            0.0,
+            0.9594,
+            0.0
+          ],
+          [
+            0.0336,
+            0.0,
+            0.9664,
+            0.0
+          ]
+        ],
+        "bootstrap_ci": {
+          "macro_f1": {
+            "mean": 0.3008005733363857,
+            "std": 0.034659308180035674,
+            "ci_lower": 0.23655479773629243,
+            "ci_upper": 0.37705194512516793
+          },
+          "s_recall": {
+            "mean": 0.0,
+            "std": 0.0,
+            "ci_lower": 0.0,
+            "ci_upper": 0.0
+          },
+          "v_recall": {
+            "mean": 0.958320056653705,
+            "std": 0.028575114371462228,
+            "ci_lower": 0.889220757841807,
+            "ci_upper": 0.9955942317416276
+          }
+        },
+        "eval_time_seconds": 2.63,
+        "latency_ms": 0.618,
+        "checkpoint_size_kb": 181.3
+      },
+      "hybrid_cnn": {
+        "accuracy": 0.927,
+        "macro_f1": 0.5696,
+        "weighted_f1": 0.9252,
+        "s_sensitivity": 0.537,
+        "s_ppv": 0.4551,
+        "v_sensitivity": 0.8707,
+        "v_ppv": 0.786,
+        "per_class": {
+          "N": {
+            "precision": 0.9627,
+            "recall": 0.9563,
+            "f1_score": 0.9595,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.4551,
+            "recall": 0.537,
+            "f1_score": 0.4927,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.786,
+            "recall": 0.8707,
+            "f1_score": 0.8261,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 387
+          }
+        },
+        "confusion_matrix": [
+          [
+            40337,
+            1125,
+            718,
+            0
+          ],
+          [
+            789,
+            957,
+            36,
+            0
+          ],
+          [
+            393,
+            21,
+            2787,
+            0
+          ],
+          [
+            382,
+            0,
+            5,
+            0
+          ]
+        ],
+        "normalized_confusion_matrix": [
+          [
+            0.9563,
+            0.0267,
+            0.017,
+            0.0
+          ],
+          [
+            0.4428,
+            0.537,
+            0.0202,
+            0.0
+          ],
+          [
+            0.1228,
+            0.0066,
+            0.8707,
+            0.0
+          ],
+          [
+            0.9871,
+            0.0,
+            0.0129,
+            0.0
+          ]
+        ],
+        "bootstrap_ci": {
+          "macro_f1": {
+            "mean": 0.5537589361156274,
+            "std": 0.04220485737014177,
+            "ci_lower": 0.45929064490949933,
+            "ci_upper": 0.618141031217134
+          },
+          "s_recall": {
+            "mean": 0.5582003758239812,
+            "std": 0.13275720299182187,
+            "ci_lower": 0.2642637917637918,
+            "ci_upper": 0.8708663151812795
+          },
+          "v_recall": {
+            "mean": 0.8727147957525834,
+            "std": 0.04008085691912933,
+            "ci_lower": 0.7730783433952724,
+            "ci_upper": 0.941690908113697
+          }
+        },
+        "eval_time_seconds": 2.34,
+        "latency_ms": 0.681,
+        "checkpoint_size_kb": 212.2
+      }
+    }
+  }
+}

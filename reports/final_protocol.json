@@ -1,0 +1,83 @@
+{
+  "phase": "04_FINAL_EVALUATION",
+  "protocol_version": "1.0.0",
+  "created_at": "2026-11-16T18:49:00Z",
+  "commit_sha": "3291fc2",
+  "random_seed": 42,
+  "hardware": {
+    "platform": "macOS-arm64",
+    "device": "mps",
+    "ram_gb": 8.0,
+    "cpu_cores": 8
+  },
+  "cohort": {
+    "database": "PhysioNet MIT-BIH Arrhythmia Database v1.0.0",
+    "sampling_rate_hz": 360,
+    "window_samples": 252,
+    "pre_r_samples": 90,
+    "post_r_samples": 162,
+    "lead_selection_policy": "MLII preferred via header metadata; fallback to first lead if MLII absent (e.g. Record 114)",
+    "excluded_paced_records": ["102", "104", "107", "217"],
+    "ds1_development_records": [
+      "101", "106", "108", "109", "112", "114", "115", "116",
+      "118", "119", "122", "124", "201", "203", "205", "207",
+      "208", "209", "215", "220", "223", "230"
+    ],
+    "ds1_val_records": ["115", "119", "208", "223"],
+    "ds2_classical_test_records": [
+      "100", "103", "105", "111", "113", "117", "121", "123",
+      "200", "202", "210", "212", "213", "214", "219", "221",
+      "222", "228", "231", "232", "233", "234"
+    ],
+    "ds2_strict_test_records": [
+      "100", "103", "105", "111", "113", "117", "121", "123",
+      "200", "210", "212", "213", "214", "219", "221",
+      "222", "228", "231", "232", "233", "234"
+    ],
+    "critical_subject_overlap_note": "Records 201 (DS1) and 202 (DS2) come from the identical subject (MIT-BIH documentation). The classical de Chazal benchmark is not strictly patient-disjoint. DS2 Strict excludes 202 as the primary headline generalization evaluation."
+  },
+  "classes": {
+    "headline_classes": ["N", "S", "V", "F"],
+    "q_class_status": "Omitted from headline classification due to extreme rarity (no paced records included, 15 total Q beats across dataset)."
+  },
+  "checkpoints": {
+    "majority": {
+      "path": "artifacts/checkpoints/majority.pkl",
+      "sha256": "0c6b336c711d9c4f0a66dd222dd58ced52e7b646772d9600f0d96b7e23519846"
+    },
+    "random_forest": {
+      "path": "artifacts/checkpoints/random_forest.pkl",
+      "sha256": "c86cbfbfe9cc62bbec9c205147d784d83674ce3859d9c13650833fa847570b64"
+    },
+    "waveform_cnn": {
+      "path": "artifacts/checkpoints/waveform_cnn.pt",
+      "sha256": "c6df2f4ebaab99dcae9df09fce7127ce6cbe569eac0850ba917d0c365c609830"
+    },
+    "hybrid_cnn": {
+      "path": "artifacts/checkpoints/hybrid_cnn.pt",
+      "sha256": "f2cd8cbfc10213620e4fd5664448c9e5e70c570b0c2228dc6d76c2d1a645c2cf"
+    }
+  },
+  "data_hashes": {
+    "train_npz": "3f0e42509f2831e5a226d17180a7e1645d7fa6dae2ea084d691fd6726454a81b",
+    "val_npz": "d07d378e62b5087f8c981721e9732493ff5dbc96acd032c446c2317955eb16d7",
+    "test_classical_npz": "7e14a7e8a27dcd4e8fca636f3a99e3759255c0352d0ee7866e2c32e526df524e",
+    "test_strict_npz": "a84c23b09ca3ea769f863cf2d2474b3fd0361915919e299ed7436e11acacf223",
+    "scaler_params_json": "a88063623a8b14702c94c310e8d9b2bb64b548d5c41e8a2b84c3d87abd538584"
+  },
+  "calibration_policy": {
+    "source": "reports/calibration_protocol.json",
+    "temperature": 0.6399,
+    "abstention_thresholds": {
+      "conservative": 0.95,
+      "balanced": 0.9073,
+      "high_coverage": 0.60
+    }
+  },
+  "metrics_protocol": {
+    "primary": "Macro F1 on strict patient-disjoint test set (21 records)",
+    "secondary": ["S-Sensitivity", "S-PPV", "V-Sensitivity", "V-PPV", "Weighted F1", "Accuracy"],
+    "uncertainty_intervals": "95% Confidence Intervals via 300 patient-clustered bootstrap resamples",
+    "latency": "Median & mean inference latency over 300 iterations (ms)"
+  }
+}
