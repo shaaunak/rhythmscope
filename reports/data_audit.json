@@ -10,18 +10,17 @@
   },
   "split_counts": {
     "DS1_TRAIN": {
-      "N": 38739,
-      "Q": 6,
-      "S": 869,
-      "V": 1879,
-      "F": 28
+      "N": 37131,
+      "Q": 8,
+      "S": 772,
+      "V": 3228,
+      "F": 390
     },
     "DS1_VAL": {
-      "N": 7127,
-      "V": 1909,
-      "F": 387,
-      "S": 75,
-      "Q": 2
+      "N": 8735,
+      "V": 560,
+      "S": 172,
+      "F": 25
     },
     "DS2_CLASSICAL": {
       "N": 44259,
@@ -68,8 +67,8 @@
     "strict_guarantee": "Record 202 is completely omitted from DS2_STRICT benchmark to guarantee true out-of-subject generalization."
   },
   "q_class_audit": {
-    "q_count_ds1_train": 6,
-    "q_count_ds1_val": 2,
+    "q_count_ds1_train": 8,
+    "q_count_ds1_val": 0,
     "q_count_ds2_classical": 7,
     "q_count_ds2_strict": 7,
     "q_decision": "After excluding paced recordings (102, 104, 107, 217), class Q consists of negligible unclassifiable/fusion beats (<0.02% of data in DS1). Headline classification targets N, S, V, F; Q beats are audited and documented."
@@ -574,7 +573,7 @@
         "S": 96
       },
       "partitions": [
-        "DS1_TRAIN"
+        "DS1_VAL"
       ],
       "demographics": {
         "age": 69,
@@ -603,7 +602,7 @@
         "V": 444
       },
       "partitions": [
-        "DS1_VAL"
+        "DS1_TRAIN"
       ],
       "demographics": {
         "age": 51,
@@ -874,7 +873,7 @@
         "F": 11
       },
       "partitions": [
-        "DS1_TRAIN"
+        "DS1_VAL"
       ],
       "demographics": {
         "age": 59,
@@ -936,7 +935,7 @@
         "Q": 2
       },
       "partitions": [
-        "DS1_VAL"
+        "DS1_TRAIN"
       ],
       "demographics": {
         "age": 23,

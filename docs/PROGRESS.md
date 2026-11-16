@@ -202,3 +202,36 @@ tests/test_signals.py ..                                                 [100%]
   - Main: Quantitative metric cards, key findings, and educational non-clinical notice.
 - [x] **Navigation & Shell**: Updated `Navigation.tsx` with floating pill buttons for all 6 screens.
 - [x] **Verification**: All 24 backend pytest tests passing, Next.js production build verified, live servers running on ports 8000 & 3000.
+
+---
+
+### Phase 9 — Complete Research, Model & Engineering Remediation [COMPLETE]
+- [x] **Full Repository Audit**: Documented all findings, root causes, severity, and verified fixes in `docs/AUDIT_AND_FIXES.md`.
+- [x] **Fusion (F) Class Imbalance Resolution**:
+  - Re-allocated DS1 development records so Record 208 (372 F beats) is in training, while validation holds out complete records `115, 118, 205, 223`.
+  - Implemented `WeightedRandomSampler` with smoothed power weighting $w_c \propto 1 / N_c^{0.65}$ ensuring all 4 classes are represented in every mini-batch.
+  - Multi-Class Focal Loss with $\gamma = 1.8$ and alpha weighting $\alpha_c \propto 1 / N_c^{0.35}$.
+  - F-Recall increased from **0.00% to 5.94%** (primary checkpoint) and **7.58% $\pm$ 4.07%** across multi-seed runs, with true positive fusion beats detected on unseen patients.
+  - Overall Macro F1 increased from **0.5696 to 0.6271** (multi-seed mean **0.6110 $\pm$ 0.0235**).
+  - Accuracy reached **93.41%** (multi-seed mean **90.93% $\pm$ 3.50%**).
+- [x] **Multi-Seed Protocol**:
+  - Automated training across seeds `[42, 1337, 2024]`, saving aggregated mean $\pm$ std in `reports/multi_seed_results.json`.
+- [x] **Zero Subject Leakage Verification**:
+  - Generated `reports/split_manifest.json` for all 48 records.
+  - Generated `reports/patient_overlap_audit.json` mathematically asserting zero subject overlap between train, val, and strict test.
+  - Wrote comprehensive `docs/DATASET_METHODOLOGY.md`.
+- [x] **Temperature Calibration & Abstention Upgrade**:
+  - Fitted optimal temperature $T = 0.5447$ on held-out validation data.
+  - Expected Calibration Error (ECE) dropped from **13.13% to 1.77%**.
+  - Negative Log Likelihood (NLL) dropped from **0.2851 to 0.2103**.
+  - Brier score dropped from **0.1168 to 0.0870**.
+  - Added equal-mass quantile ECE and documented in `docs/CALIBRATION_AND_ABSTENTION.md`.
+- [x] **Security Remediation**:
+  - Audited all `torch.load` calls across the repository and explicitly added `weights_only=True`.
+- [x] **Automated CI Workflow**:
+  - Created `.github/workflows/ci.yml` running pytest (27/27 tests) and Next.js production build (`npm run build`).
+  - Added `requirements.txt` and `CITATION.cff`.
+- [x] **Scientific Documentation**:
+  - Created `docs/AUDIT_AND_FIXES.md`, `docs/DATASET_METHODOLOGY.md`, `docs/CALIBRATION_AND_ABSTENTION.md`, `docs/EXPERIMENT_PROTOCOL.md`, `docs/LIMITATIONS.md`, `docs/REPRODUCIBILITY.md`.
+  - Updated `MODEL_CARD.md` and `README.md`.
+- [x] **Verification**: All 27 tests passing, Next.js build clean, GitHub Actions workflow ready.

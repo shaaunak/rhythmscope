@@ -9,26 +9,26 @@
   ],
   "clean_baseline": {
     "hybrid_cnn": {
-      "macro_f1": 0.5721,
-      "accuracy": 0.7148,
-      "s_recall": 0.537,
-      "v_recall": 0.8733
+      "macro_f1": 0.6702,
+      "accuracy": 0.8168,
+      "s_recall": 0.8187,
+      "v_recall": 0.8642
     },
     "waveform_cnn": {
-      "macro_f1": 0.3191,
-      "accuracy": 0.4852,
-      "s_recall": 0.0,
-      "v_recall": 0.9683
+      "macro_f1": 0.3789,
+      "accuracy": 0.511,
+      "s_recall": 0.0651,
+      "v_recall": 0.9175
     },
     "random_forest": {
-      "macro_f1": 0.3905,
-      "accuracy": 0.5312,
-      "s_recall": 0.2548,
-      "v_recall": 0.5533
+      "macro_f1": 0.4711,
+      "accuracy": 0.5456,
+      "s_recall": 0.1117,
+      "v_recall": 0.7975
     }
   },
-  "frozen_abstention_threshold": 0.9073,
-  "temperature": 0.6399,
+  "frozen_abstention_threshold": 0.9531,
+  "temperature": 0.5447,
   "scenarios": [
     {
       "noise_type": "bw",
@@ -37,27 +37,27 @@
       "mean_realized_snr_db": 24.0,
       "models": {
         "hybrid_cnn": {
-          "macro_f1": 0.5704,
-          "accuracy": 0.7124,
-          "s_recall": 0.5348,
-          "v_recall": 0.865,
-          "flip_rate": 0.0078,
-          "coverage": 0.4702,
-          "selective_risk": 0.2416,
-          "abstention_rate": 0.5298
+          "macro_f1": 0.6844,
+          "accuracy": 0.8168,
+          "s_recall": 0.8159,
+          "v_recall": 0.8608,
+          "flip_rate": 0.016,
+          "coverage": 0.5188,
+          "selective_risk": 0.1191,
+          "abstention_rate": 0.4812
         },
         "waveform_cnn": {
-          "macro_f1": 0.3141,
-          "accuracy": 0.478,
-          "s_recall": 0.0,
-          "v_recall": 0.9683,
-          "flip_rate": 0.0108
+          "macro_f1": 0.3741,
+          "accuracy": 0.5146,
+          "s_recall": 0.0539,
+          "v_recall": 0.9158,
+          "flip_rate": 0.043
         },
         "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
           "flip_rate": 0.0
         }
       }
@@ -69,443 +69,443 @@
       "mean_realized_snr_db": 18.0,
       "models": {
         "hybrid_cnn": {
-          "macro_f1": 0.5703,
-          "accuracy": 0.7124,
-          "s_recall": 0.5404,
-          "v_recall": 0.8533,
-          "flip_rate": 0.0186,
-          "coverage": 0.4634,
-          "selective_risk": 0.2382,
-          "abstention_rate": 0.5366
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.3099,
-          "accuracy": 0.4718,
-          "s_recall": 0.0,
-          "v_recall": 0.975,
-          "flip_rate": 0.0222
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "bw",
-      "noise_description": "Baseline Wander (respiratory and patient movement)",
-      "target_snr_db": 12,
-      "mean_realized_snr_db": 12.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.5567,
-          "accuracy": 0.7,
-          "s_recall": 0.5522,
-          "v_recall": 0.79,
-          "flip_rate": 0.0612,
-          "coverage": 0.4418,
-          "selective_risk": 0.2218,
-          "abstention_rate": 0.5582
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.29,
-          "accuracy": 0.4438,
-          "s_recall": 0.0,
-          "v_recall": 0.9808,
-          "flip_rate": 0.0598
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "bw",
-      "noise_description": "Baseline Wander (respiratory and patient movement)",
-      "target_snr_db": 6,
-      "mean_realized_snr_db": 6.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.526,
-          "accuracy": 0.6732,
-          "s_recall": 0.5668,
-          "v_recall": 0.7017,
-          "flip_rate": 0.1654,
-          "coverage": 0.4502,
-          "selective_risk": 0.2315,
-          "abstention_rate": 0.5498
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.2417,
-          "accuracy": 0.3768,
-          "s_recall": 0.0,
-          "v_recall": 0.9342,
-          "flip_rate": 0.1852
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "bw",
-      "noise_description": "Baseline Wander (respiratory and patient movement)",
-      "target_snr_db": 0,
-      "mean_realized_snr_db": 0.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.4286,
-          "accuracy": 0.5562,
-          "s_recall": 0.4714,
-          "v_recall": 0.5467,
-          "flip_rate": 0.358,
-          "coverage": 0.4728,
-          "selective_risk": 0.3769,
-          "abstention_rate": 0.5272
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.1763,
-          "accuracy": 0.2834,
-          "s_recall": 0.0,
-          "v_recall": 0.8175,
-          "flip_rate": 0.4234
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "ma",
-      "noise_description": "Muscle Artifact (electromyographic tremor)",
-      "target_snr_db": 24,
-      "mean_realized_snr_db": 24.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.572,
-          "accuracy": 0.7146,
-          "s_recall": 0.5449,
-          "v_recall": 0.8575,
-          "flip_rate": 0.0146,
-          "coverage": 0.4702,
-          "selective_risk": 0.2467,
-          "abstention_rate": 0.5298
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.3126,
-          "accuracy": 0.4758,
-          "s_recall": 0.0,
-          "v_recall": 0.9717,
-          "flip_rate": 0.0126
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "ma",
-      "noise_description": "Muscle Artifact (electromyographic tremor)",
-      "target_snr_db": 18,
-      "mean_realized_snr_db": 18.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.5674,
-          "accuracy": 0.71,
-          "s_recall": 0.569,
-          "v_recall": 0.7942,
-          "flip_rate": 0.0472,
-          "coverage": 0.4566,
-          "selective_risk": 0.2413,
-          "abstention_rate": 0.5434
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.3023,
-          "accuracy": 0.4612,
-          "s_recall": 0.0,
-          "v_recall": 0.9775,
-          "flip_rate": 0.0342
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "ma",
-      "noise_description": "Muscle Artifact (electromyographic tremor)",
-      "target_snr_db": 12,
-      "mean_realized_snr_db": 12.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.492,
-          "accuracy": 0.6444,
-          "s_recall": 0.6386,
-          "v_recall": 0.4408,
-          "flip_rate": 0.1934,
-          "coverage": 0.442,
-          "selective_risk": 0.3104,
-          "abstention_rate": 0.558
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.2809,
-          "accuracy": 0.4272,
-          "s_recall": 0.0,
-          "v_recall": 0.9383,
-          "flip_rate": 0.1114
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "ma",
-      "noise_description": "Muscle Artifact (electromyographic tremor)",
-      "target_snr_db": 6,
-      "mean_realized_snr_db": 6.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.3997,
-          "accuracy": 0.5696,
-          "s_recall": 0.7278,
-          "v_recall": 0.1658,
-          "flip_rate": 0.3826,
-          "coverage": 0.5882,
-          "selective_risk": 0.4767,
-          "abstention_rate": 0.4118
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.2272,
-          "accuracy": 0.3542,
-          "s_recall": 0.0,
-          "v_recall": 0.465,
-          "flip_rate": 0.3134
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "ma",
-      "noise_description": "Muscle Artifact (electromyographic tremor)",
-      "target_snr_db": 0,
-      "mean_realized_snr_db": 0.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.3172,
-          "accuracy": 0.48,
-          "s_recall": 0.8244,
-          "v_recall": 0.0717,
-          "flip_rate": 0.5534,
-          "coverage": 0.715,
-          "selective_risk": 0.5743,
-          "abstention_rate": 0.285
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.1803,
-          "accuracy": 0.258,
-          "s_recall": 0.0438,
-          "v_recall": 0.2167,
-          "flip_rate": 0.4674
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "em",
-      "noise_description": "Electrode Motion (transient contact loss and baseline shifts)",
-      "target_snr_db": 24,
-      "mean_realized_snr_db": 24.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.5704,
-          "accuracy": 0.7126,
-          "s_recall": 0.5337,
-          "v_recall": 0.8725,
-          "flip_rate": 0.0086,
-          "coverage": 0.4722,
-          "selective_risk": 0.2435,
-          "abstention_rate": 0.5278
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.3185,
-          "accuracy": 0.4844,
-          "s_recall": 0.0,
-          "v_recall": 0.9675,
-          "flip_rate": 0.0068
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "em",
-      "noise_description": "Electrode Motion (transient contact loss and baseline shifts)",
-      "target_snr_db": 18,
-      "mean_realized_snr_db": 18.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.5696,
-          "accuracy": 0.7118,
-          "s_recall": 0.5297,
-          "v_recall": 0.8733,
-          "flip_rate": 0.018,
-          "coverage": 0.4682,
-          "selective_risk": 0.2354,
-          "abstention_rate": 0.5318
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.3158,
-          "accuracy": 0.4806,
-          "s_recall": 0.0,
-          "v_recall": 0.9708,
-          "flip_rate": 0.0144
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "em",
-      "noise_description": "Electrode Motion (transient contact loss and baseline shifts)",
-      "target_snr_db": 12,
-      "mean_realized_snr_db": 12.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.5703,
-          "accuracy": 0.7132,
-          "s_recall": 0.5247,
-          "v_recall": 0.8858,
-          "flip_rate": 0.0378,
-          "coverage": 0.4558,
-          "selective_risk": 0.2049,
-          "abstention_rate": 0.5442
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.3056,
-          "accuracy": 0.466,
-          "s_recall": 0.0,
-          "v_recall": 0.9767,
-          "flip_rate": 0.0338
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "em",
-      "noise_description": "Electrode Motion (transient contact loss and baseline shifts)",
-      "target_snr_db": 6,
-      "mean_realized_snr_db": 6.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.5393,
-          "accuracy": 0.6834,
-          "s_recall": 0.4489,
-          "v_recall": 0.9008,
-          "flip_rate": 0.1072,
-          "coverage": 0.4372,
-          "selective_risk": 0.172,
-          "abstention_rate": 0.5628
-        },
-        "waveform_cnn": {
-          "macro_f1": 0.2653,
-          "accuracy": 0.4102,
-          "s_recall": 0.0,
-          "v_recall": 0.9858,
-          "flip_rate": 0.1076
-        },
-        "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
-          "flip_rate": 0.0
-        }
-      }
-    },
-    {
-      "noise_type": "em",
-      "noise_description": "Electrode Motion (transient contact loss and baseline shifts)",
-      "target_snr_db": 0,
-      "mean_realized_snr_db": 0.0,
-      "models": {
-        "hybrid_cnn": {
-          "macro_f1": 0.4467,
-          "accuracy": 0.5916,
-          "s_recall": 0.2901,
+          "macro_f1": 0.701,
+          "accuracy": 0.8132,
+          "s_recall": 0.8042,
           "v_recall": 0.85,
-          "flip_rate": 0.2606,
-          "coverage": 0.392,
-          "selective_risk": 0.1791,
-          "abstention_rate": 0.608
+          "flip_rate": 0.0386,
+          "coverage": 0.4942,
+          "selective_risk": 0.1121,
+          "abstention_rate": 0.5058
         },
         "waveform_cnn": {
-          "macro_f1": 0.1678,
-          "accuracy": 0.2936,
-          "s_recall": 0.0,
-          "v_recall": 0.99,
-          "flip_rate": 0.39
+          "macro_f1": 0.3693,
+          "accuracy": 0.509,
+          "s_recall": 0.0522,
+          "v_recall": 0.9008,
+          "flip_rate": 0.0844
         },
         "random_forest": {
-          "macro_f1": 0.3905,
-          "accuracy": 0.5312,
-          "s_recall": 0.2548,
-          "v_recall": 0.5533,
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "bw",
+      "noise_description": "Baseline Wander (respiratory and patient movement)",
+      "target_snr_db": 12,
+      "mean_realized_snr_db": 12.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.7007,
+          "accuracy": 0.7864,
+          "s_recall": 0.7654,
+          "v_recall": 0.7875,
+          "flip_rate": 0.099,
+          "coverage": 0.4608,
+          "selective_risk": 0.1254,
+          "abstention_rate": 0.5392
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.3431,
+          "accuracy": 0.4428,
+          "s_recall": 0.0943,
+          "v_recall": 0.8258,
+          "flip_rate": 0.2018
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "bw",
+      "noise_description": "Baseline Wander (respiratory and patient movement)",
+      "target_snr_db": 6,
+      "mean_realized_snr_db": 6.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.6468,
+          "accuracy": 0.7158,
+          "s_recall": 0.6717,
+          "v_recall": 0.6525,
+          "flip_rate": 0.2092,
+          "coverage": 0.43,
+          "selective_risk": 0.1953,
+          "abstention_rate": 0.57
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.3302,
+          "accuracy": 0.4016,
+          "s_recall": 0.3586,
+          "v_recall": 0.6792,
+          "flip_rate": 0.4438
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "bw",
+      "noise_description": "Baseline Wander (respiratory and patient movement)",
+      "target_snr_db": 0,
+      "mean_realized_snr_db": 0.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.5231,
+          "accuracy": 0.5856,
+          "s_recall": 0.5359,
+          "v_recall": 0.4858,
+          "flip_rate": 0.368,
+          "coverage": 0.4392,
+          "selective_risk": 0.3506,
+          "abstention_rate": 0.5608
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.2681,
+          "accuracy": 0.3808,
+          "s_recall": 0.6201,
+          "v_recall": 0.5317,
+          "flip_rate": 0.7124
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "ma",
+      "noise_description": "Muscle Artifact (electromyographic tremor)",
+      "target_snr_db": 24,
+      "mean_realized_snr_db": 24.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.6738,
+          "accuracy": 0.8132,
+          "s_recall": 0.8126,
+          "v_recall": 0.8533,
+          "flip_rate": 0.0178,
+          "coverage": 0.5242,
+          "selective_risk": 0.1263,
+          "abstention_rate": 0.4758
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.3791,
+          "accuracy": 0.5196,
+          "s_recall": 0.0415,
+          "v_recall": 0.8908,
+          "flip_rate": 0.0672
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "ma",
+      "noise_description": "Muscle Artifact (electromyographic tremor)",
+      "target_snr_db": 18,
+      "mean_realized_snr_db": 18.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.6499,
+          "accuracy": 0.795,
+          "s_recall": 0.8053,
+          "v_recall": 0.795,
+          "flip_rate": 0.0408,
+          "coverage": 0.5056,
+          "selective_risk": 0.1381,
+          "abstention_rate": 0.4944
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.3589,
+          "accuracy": 0.5014,
+          "s_recall": 0.0286,
+          "v_recall": 0.8225,
+          "flip_rate": 0.1286
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "ma",
+      "noise_description": "Muscle Artifact (electromyographic tremor)",
+      "target_snr_db": 12,
+      "mean_realized_snr_db": 12.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.5626,
+          "accuracy": 0.7164,
+          "s_recall": 0.7733,
+          "v_recall": 0.51,
+          "flip_rate": 0.1442,
+          "coverage": 0.4892,
+          "selective_risk": 0.2069,
+          "abstention_rate": 0.5108
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.2967,
+          "accuracy": 0.3898,
+          "s_recall": 0.0589,
+          "v_recall": 0.5333,
+          "flip_rate": 0.2912
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "ma",
+      "noise_description": "Muscle Artifact (electromyographic tremor)",
+      "target_snr_db": 6,
+      "mean_realized_snr_db": 6.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.4366,
+          "accuracy": 0.6104,
+          "s_recall": 0.7531,
+          "v_recall": 0.1833,
+          "flip_rate": 0.2938,
+          "coverage": 0.5654,
+          "selective_risk": 0.3757,
+          "abstention_rate": 0.4346
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.2722,
+          "accuracy": 0.3496,
+          "s_recall": 0.4293,
+          "v_recall": 0.24,
+          "flip_rate": 0.583
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "ma",
+      "noise_description": "Muscle Artifact (electromyographic tremor)",
+      "target_snr_db": 0,
+      "mean_realized_snr_db": 0.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.3522,
+          "accuracy": 0.514,
+          "s_recall": 0.8412,
+          "v_recall": 0.0833,
+          "flip_rate": 0.4454,
+          "coverage": 0.6628,
+          "selective_risk": 0.538,
+          "abstention_rate": 0.3372
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.2483,
+          "accuracy": 0.3802,
+          "s_recall": 0.7323,
+          "v_recall": 0.105,
+          "flip_rate": 0.7552
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "em",
+      "noise_description": "Electrode Motion (transient contact loss and baseline shifts)",
+      "target_snr_db": 24,
+      "mean_realized_snr_db": 24.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.681,
+          "accuracy": 0.818,
+          "s_recall": 0.8165,
+          "v_recall": 0.8617,
+          "flip_rate": 0.0136,
+          "coverage": 0.5248,
+          "selective_risk": 0.12,
+          "abstention_rate": 0.4752
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.382,
+          "accuracy": 0.5124,
+          "s_recall": 0.064,
+          "v_recall": 0.9275,
+          "flip_rate": 0.0264
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "em",
+      "noise_description": "Electrode Motion (transient contact loss and baseline shifts)",
+      "target_snr_db": 18,
+      "mean_realized_snr_db": 18.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.6925,
+          "accuracy": 0.8178,
+          "s_recall": 0.8109,
+          "v_recall": 0.8633,
+          "flip_rate": 0.027,
+          "coverage": 0.5156,
+          "selective_risk": 0.1102,
+          "abstention_rate": 0.4844
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.3846,
+          "accuracy": 0.5096,
+          "s_recall": 0.0645,
+          "v_recall": 0.9292,
+          "flip_rate": 0.0538
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "em",
+      "noise_description": "Electrode Motion (transient contact loss and baseline shifts)",
+      "target_snr_db": 12,
+      "mean_realized_snr_db": 12.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.7233,
+          "accuracy": 0.8218,
+          "s_recall": 0.7991,
+          "v_recall": 0.8742,
+          "flip_rate": 0.0534,
+          "coverage": 0.5028,
+          "selective_risk": 0.0975,
+          "abstention_rate": 0.4972
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.3709,
+          "accuracy": 0.4902,
+          "s_recall": 0.0651,
+          "v_recall": 0.9333,
+          "flip_rate": 0.1012
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "em",
+      "noise_description": "Electrode Motion (transient contact loss and baseline shifts)",
+      "target_snr_db": 6,
+      "mean_realized_snr_db": 6.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.7296,
+          "accuracy": 0.7964,
+          "s_recall": 0.7379,
+          "v_recall": 0.8692,
+          "flip_rate": 0.1256,
+          "coverage": 0.4646,
+          "selective_risk": 0.1046,
+          "abstention_rate": 0.5354
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.3586,
+          "accuracy": 0.4578,
+          "s_recall": 0.1229,
+          "v_recall": 0.9267,
+          "flip_rate": 0.2126
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
+          "flip_rate": 0.0
+        }
+      }
+    },
+    {
+      "noise_type": "em",
+      "noise_description": "Electrode Motion (transient contact loss and baseline shifts)",
+      "target_snr_db": 0,
+      "mean_realized_snr_db": 0.0,
+      "models": {
+        "hybrid_cnn": {
+          "macro_f1": 0.6388,
+          "accuracy": 0.691,
+          "s_recall": 0.5533,
+          "v_recall": 0.8325,
+          "flip_rate": 0.2594,
+          "coverage": 0.3934,
+          "selective_risk": 0.1586,
+          "abstention_rate": 0.6066
+        },
+        "waveform_cnn": {
+          "macro_f1": 0.3191,
+          "accuracy": 0.42,
+          "s_recall": 0.2694,
+          "v_recall": 0.9075,
+          "flip_rate": 0.455
+        },
+        "random_forest": {
+          "macro_f1": 0.4711,
+          "accuracy": 0.5456,
+          "s_recall": 0.1117,
+          "v_recall": 0.7975,
           "flip_rate": 0.0
         }
       }

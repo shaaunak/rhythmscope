@@ -1,0 +1,917 @@
+{
+  "version": "2.0.0",
+  "description": "RhythmScope comprehensive patient and recording split manifest",
+  "total_records": 48,
+  "records": [
+    {
+      "record": "100",
+      "assigned_split": "test_strict",
+      "patient_id": "P100",
+      "age": 69,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V5"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2273,
+      "class_distribution": {
+        "N": 2239,
+        "S": 33,
+        "V": 1
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "101",
+      "assigned_split": "train",
+      "patient_id": "P101",
+      "age": 75,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1865,
+      "class_distribution": {
+        "N": 1860,
+        "Q": 2,
+        "S": 3
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "102",
+      "assigned_split": "excluded_paced",
+      "patient_id": "P102",
+      "age": 84,
+      "sex": "F",
+      "leads": [
+        "V5",
+        "V2"
+      ],
+      "primary_lead_used": "V5",
+      "total_beats": 2187,
+      "class_distribution": {
+        "Q": 2084,
+        "N": 99,
+        "V": 4
+      },
+      "exclusion_rationale": "Excluded per AAMI 1998 standard due to ventricular pacemaker rhythms."
+    },
+    {
+      "record": "103",
+      "assigned_split": "test_strict",
+      "patient_id": "P103",
+      "age": 20,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V2"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2084,
+      "class_distribution": {
+        "N": 2082,
+        "S": 2
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "104",
+      "assigned_split": "excluded_paced",
+      "patient_id": "P104",
+      "age": 66,
+      "sex": "F",
+      "leads": [
+        "V5",
+        "V2"
+      ],
+      "primary_lead_used": "V5",
+      "total_beats": 2229,
+      "class_distribution": {
+        "Q": 2064,
+        "N": 163,
+        "V": 2
+      },
+      "exclusion_rationale": "Excluded per AAMI 1998 standard due to ventricular pacemaker rhythms."
+    },
+    {
+      "record": "105",
+      "assigned_split": "test_strict",
+      "patient_id": "P105",
+      "age": 73,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2572,
+      "class_distribution": {
+        "N": 2526,
+        "V": 41,
+        "Q": 5
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "106",
+      "assigned_split": "train",
+      "patient_id": "P106",
+      "age": 24,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2027,
+      "class_distribution": {
+        "N": 1507,
+        "V": 520
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "107",
+      "assigned_split": "excluded_paced",
+      "patient_id": "P107",
+      "age": 63,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2137,
+      "class_distribution": {
+        "Q": 2078,
+        "V": 59
+      },
+      "exclusion_rationale": "Excluded per AAMI 1998 standard due to ventricular pacemaker rhythms."
+    },
+    {
+      "record": "108",
+      "assigned_split": "train",
+      "patient_id": "P108",
+      "age": 87,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1763,
+      "class_distribution": {
+        "N": 1740,
+        "V": 17,
+        "F": 2,
+        "S": 4
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "109",
+      "assigned_split": "train",
+      "patient_id": "P109",
+      "age": 64,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2532,
+      "class_distribution": {
+        "N": 2492,
+        "F": 2,
+        "V": 38
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "111",
+      "assigned_split": "test_strict",
+      "patient_id": "P111",
+      "age": 47,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2124,
+      "class_distribution": {
+        "N": 2123,
+        "V": 1
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "112",
+      "assigned_split": "train",
+      "patient_id": "P112",
+      "age": 54,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2539,
+      "class_distribution": {
+        "N": 2537,
+        "S": 2
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "113",
+      "assigned_split": "test_strict",
+      "patient_id": "P113",
+      "age": 24,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1795,
+      "class_distribution": {
+        "N": 1789,
+        "S": 6
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "114",
+      "assigned_split": "train",
+      "patient_id": "P114",
+      "age": 72,
+      "sex": "F",
+      "leads": [
+        "V5",
+        "MLII"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1879,
+      "class_distribution": {
+        "N": 1820,
+        "V": 43,
+        "S": 12,
+        "F": 4
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "115",
+      "assigned_split": "val",
+      "patient_id": "P115",
+      "age": 39,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1953,
+      "class_distribution": {
+        "N": 1953
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "116",
+      "assigned_split": "train",
+      "patient_id": "P116",
+      "age": 68,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2412,
+      "class_distribution": {
+        "N": 2302,
+        "V": 109,
+        "S": 1
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "117",
+      "assigned_split": "test_strict",
+      "patient_id": "P117",
+      "age": 69,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V2"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1535,
+      "class_distribution": {
+        "N": 1534,
+        "S": 1
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "118",
+      "assigned_split": "val",
+      "patient_id": "P118",
+      "age": 69,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2278,
+      "class_distribution": {
+        "N": 2166,
+        "V": 16,
+        "S": 96
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "119",
+      "assigned_split": "train",
+      "patient_id": "P119",
+      "age": 51,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1987,
+      "class_distribution": {
+        "N": 1543,
+        "V": 444
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "121",
+      "assigned_split": "test_strict",
+      "patient_id": "P121",
+      "age": 83,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1863,
+      "class_distribution": {
+        "N": 1861,
+        "S": 1,
+        "V": 1
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "122",
+      "assigned_split": "train",
+      "patient_id": "P122",
+      "age": 51,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2476,
+      "class_distribution": {
+        "N": 2476
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "123",
+      "assigned_split": "test_strict",
+      "patient_id": "P123",
+      "age": 63,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V5"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1518,
+      "class_distribution": {
+        "N": 1515,
+        "V": 3
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "124",
+      "assigned_split": "train",
+      "patient_id": "P124",
+      "age": 77,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V4"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1619,
+      "class_distribution": {
+        "N": 1536,
+        "S": 31,
+        "V": 47,
+        "F": 5
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "200",
+      "assigned_split": "test_strict",
+      "patient_id": "P200",
+      "age": 64,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2601,
+      "class_distribution": {
+        "V": 826,
+        "N": 1743,
+        "S": 30,
+        "F": 2
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "201",
+      "assigned_split": "train",
+      "patient_id": "P201_202",
+      "age": 68,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1963,
+      "class_distribution": {
+        "N": 1635,
+        "S": 128,
+        "V": 198,
+        "F": 2
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "202",
+      "assigned_split": "test_classical_only",
+      "patient_id": "P201_202",
+      "age": 68,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2136,
+      "class_distribution": {
+        "N": 2061,
+        "V": 19,
+        "S": 55,
+        "F": 1
+      },
+      "exclusion_rationale": "Excluded from strict DS2 testing because subject is identical to Record 201 (DS1); retained only for classical 22-record DS2 literature comparison."
+    },
+    {
+      "record": "203",
+      "assigned_split": "train",
+      "patient_id": "P203",
+      "age": 43,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2980,
+      "class_distribution": {
+        "N": 2529,
+        "V": 444,
+        "S": 2,
+        "Q": 4,
+        "F": 1
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "205",
+      "assigned_split": "val",
+      "patient_id": "P205",
+      "age": 59,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2656,
+      "class_distribution": {
+        "N": 2571,
+        "V": 71,
+        "S": 3,
+        "F": 11
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "207",
+      "assigned_split": "train",
+      "patient_id": "P207",
+      "age": 89,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1860,
+      "class_distribution": {
+        "N": 1543,
+        "V": 210,
+        "S": 107
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "208",
+      "assigned_split": "train",
+      "patient_id": "P208",
+      "age": 23,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2955,
+      "class_distribution": {
+        "F": 373,
+        "V": 992,
+        "N": 1586,
+        "S": 2,
+        "Q": 2
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "209",
+      "assigned_split": "train",
+      "patient_id": "P209",
+      "age": 62,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 3005,
+      "class_distribution": {
+        "N": 2621,
+        "S": 383,
+        "V": 1
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "210",
+      "assigned_split": "test_strict",
+      "patient_id": "P210",
+      "age": 89,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2650,
+      "class_distribution": {
+        "N": 2423,
+        "V": 195,
+        "F": 10,
+        "S": 22
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "212",
+      "assigned_split": "test_strict",
+      "patient_id": "P212",
+      "age": 32,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2748,
+      "class_distribution": {
+        "N": 2748
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "213",
+      "assigned_split": "test_strict",
+      "patient_id": "P213",
+      "age": 61,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 3251,
+      "class_distribution": {
+        "N": 2641,
+        "F": 362,
+        "S": 28,
+        "V": 220
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "214",
+      "assigned_split": "test_strict",
+      "patient_id": "P214",
+      "age": 53,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2262,
+      "class_distribution": {
+        "N": 2003,
+        "V": 256,
+        "Q": 2,
+        "F": 1
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "215",
+      "assigned_split": "train",
+      "patient_id": "P215",
+      "age": 81,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 3363,
+      "class_distribution": {
+        "N": 3195,
+        "V": 164,
+        "S": 3,
+        "F": 1
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "217",
+      "assigned_split": "excluded_paced",
+      "patient_id": "P217",
+      "age": 65,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2208,
+      "class_distribution": {
+        "Q": 1802,
+        "V": 162,
+        "N": 244
+      },
+      "exclusion_rationale": "Excluded per AAMI 1998 standard due to ventricular pacemaker rhythms."
+    },
+    {
+      "record": "219",
+      "assigned_split": "test_strict",
+      "patient_id": "P219",
+      "age": 74,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2154,
+      "class_distribution": {
+        "N": 2082,
+        "V": 64,
+        "F": 1,
+        "S": 7
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "220",
+      "assigned_split": "train",
+      "patient_id": "P220",
+      "age": 87,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2048,
+      "class_distribution": {
+        "N": 1954,
+        "S": 94
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "221",
+      "assigned_split": "test_strict",
+      "patient_id": "P221",
+      "age": 83,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2427,
+      "class_distribution": {
+        "N": 2031,
+        "V": 396
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "222",
+      "assigned_split": "test_strict",
+      "patient_id": "P222",
+      "age": 84,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2483,
+      "class_distribution": {
+        "N": 2274,
+        "S": 209
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "223",
+      "assigned_split": "val",
+      "patient_id": "P223",
+      "age": 73,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2605,
+      "class_distribution": {
+        "N": 2045,
+        "V": 473,
+        "S": 73,
+        "F": 14
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "228",
+      "assigned_split": "test_strict",
+      "patient_id": "P228",
+      "age": 80,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2053,
+      "class_distribution": {
+        "N": 1688,
+        "V": 362,
+        "S": 3
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "230",
+      "assigned_split": "train",
+      "patient_id": "P230",
+      "age": 32,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2256,
+      "class_distribution": {
+        "N": 2255,
+        "V": 1
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "231",
+      "assigned_split": "test_strict",
+      "patient_id": "P231",
+      "age": 72,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1571,
+      "class_distribution": {
+        "N": 1568,
+        "S": 1,
+        "V": 2
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "232",
+      "assigned_split": "test_strict",
+      "patient_id": "P232",
+      "age": 76,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 1780,
+      "class_distribution": {
+        "N": 398,
+        "S": 1382
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "233",
+      "assigned_split": "test_strict",
+      "patient_id": "P233",
+      "age": 57,
+      "sex": "M",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 3079,
+      "class_distribution": {
+        "V": 831,
+        "N": 2230,
+        "S": 7,
+        "F": 11
+      },
+      "exclusion_rationale": null
+    },
+    {
+      "record": "234",
+      "assigned_split": "test_strict",
+      "patient_id": "P234",
+      "age": 56,
+      "sex": "F",
+      "leads": [
+        "MLII",
+        "V1"
+      ],
+      "primary_lead_used": "MLII",
+      "total_beats": 2753,
+      "class_distribution": {
+        "N": 2700,
+        "S": 50,
+        "V": 3
+      },
+      "exclusion_rationale": null
+    }
+  ]
+}

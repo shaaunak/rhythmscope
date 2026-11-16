@@ -39,3 +39,41 @@ def test_split_sizes():
     assert len(DS2_RECORDS) == 22
     assert len(DS2_STRICT_RECORDS) == 21
     assert len(DS1_TRAIN_RECORDS) + len(DS1_VAL_RECORDS) == 22
+
+
+def test_patient_overlap_audit_json():
+    """Verify that reports/patient_overlap_audit.json reports zero leakage."""
+    import json
+    audit_file = Path("reports/patient_overlap_audit.json")
+    assert audit_file.exists(), "patient_overlap_audit.json must exist"
+    with open(audit_file) as f:
+        data = json.load(f)
+    assert data["zero_patient_leakage"] is True
+    assert data["status"] == "PASSED_ZERO_LEAKAGE"
+    assert len(data["pairwise_overlap"]["train_val_overlap"]) == 0
+    assert len(data["pairwise_overlap"]["train_test_strict_overlap"]) == 0
+    assert len(data["pairwise_overlap"]["val_test_strict_overlap"]) == 0
+
+
+def test_record_114_lead_configuration():
+    """Verify that Record 114 selects MLII even though lead 0 is V5."""
+    from rhythmscope.signals.beats import extract_record_beats
+    b = extract_record_beats("data/raw/114")
+    assert b["lead_used"] == "MLII", f"Expected MLII but got {b['lead_used']}"
+
+
+def test_split_manifest_json():
+    """Verify that reports/split_manifest.json contains all 48 records."""
+    import json
+    manifest_file = Path("reports/split_manifest.json")
+    assert manifest_file.exists(), "split_manifest.json must exist"
+    with open(manifest_file) as f:
+        data = json.load(f)
+    assert data["total_records"] == 48
+    records = {r["record"]: r for r in data["records"]}
+    assert "201" in records
+    assert "202" in records
+    assert records["201"]["assigned_split"] == "train"
+    assert records["202"]["assigned_split"] == "test_classical_only"
+    assert "102" in records
+    assert records["102"]["assigned_split"] == "excluded_paced"

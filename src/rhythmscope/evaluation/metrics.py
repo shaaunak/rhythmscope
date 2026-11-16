@@ -69,11 +69,11 @@ def load_trained_models(ckpt_dir: str = "artifacts/checkpoints", device: str = "
         rf = pickle.load(f)
         
     cnn = WaveformCNN(num_classes=len(HEADLINE_CLASSES))
-    cnn.load_state_dict(torch.load(ck_path / "waveform_cnn.pt", map_location=dev))
+    cnn.load_state_dict(torch.load(ck_path / "waveform_cnn.pt", map_location=dev, weights_only=True))
     cnn.to(dev).eval()
     
     hybrid = HybridECGNet(num_classes=len(HEADLINE_CLASSES))
-    hybrid.load_state_dict(torch.load(ck_path / "hybrid_cnn.pt", map_location=dev))
+    hybrid.load_state_dict(torch.load(ck_path / "hybrid_cnn.pt", map_location=dev, weights_only=True))
     hybrid.to(dev).eval()
     
     return {

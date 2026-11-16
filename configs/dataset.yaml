@@ -24,7 +24,7 @@ splits:
     "208", "209", "215", "220", "223", "230"
   ]
   # We hold out specific complete patients from DS1 for validation (never tune on DS2)
-  ds1_val_records: ["115", "119", "208", "223"]
+  ds1_val_records: ["115", "118", "205", "223"]
   
   ds2_records: [
     "100", "103", "105", "111", "113", "117", "121", "123",

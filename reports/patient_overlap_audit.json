@@ -1,0 +1,75 @@
+{
+  "audit_timestamp": "2026-11-16T21:45:00Z",
+  "zero_patient_leakage": true,
+  "train_patients_count": 18,
+  "val_patients_count": 4,
+  "test_strict_patients_count": 21,
+  "train_patients": [
+    "P101",
+    "P106",
+    "P108",
+    "P109",
+    "P112",
+    "P114",
+    "P116",
+    "P119",
+    "P122",
+    "P124",
+    "P201_202",
+    "P203",
+    "P207",
+    "P208",
+    "P209",
+    "P215",
+    "P220",
+    "P230"
+  ],
+  "val_patients": [
+    "P115",
+    "P118",
+    "P205",
+    "P223"
+  ],
+  "test_strict_patients": [
+    "P100",
+    "P103",
+    "P105",
+    "P111",
+    "P113",
+    "P117",
+    "P121",
+    "P123",
+    "P200",
+    "P210",
+    "P212",
+    "P213",
+    "P214",
+    "P219",
+    "P221",
+    "P222",
+    "P228",
+    "P231",
+    "P232",
+    "P233",
+    "P234"
+  ],
+  "pairwise_overlap": {
+    "train_val_overlap": [],
+    "train_test_strict_overlap": [],
+    "val_test_strict_overlap": []
+  },
+  "subject_201_202_audit": {
+    "record_201": {
+      "split": "train",
+      "patient_id": "P201_202"
+    },
+    "record_202": {
+      "split": "test_classical_only (excluded from strict)",
+      "patient_id": "P201_202"
+    },
+    "leakage_in_classical_ds2": true,
+    "leakage_in_strict_ds2": false,
+    "verdict": "Strict DS2 benchmark strictly eliminates patient identity overlap by omitting record 202."
+  },
+  "status": "PASSED_ZERO_LEAKAGE"
+}

@@ -1,0 +1,64 @@
+cff-version: 1.2.0
+message: "If you use RhythmScope in your research, please cite it as below."
+title: "RhythmScope: Patient-Independent ECG Heartbeat Classification & Uncertainty Reliability Benchmarking"
+authors:
+  - family-names: "Sharma"
+    given-names: "Shaaunak"
+    affiliation: "RhythmScope Research Team"
+version: 2.0.0
+date-released: 2026-11-16
+url: "https://github.com/shaaunak/rhythmscope"
+repository-code: "https://github.com/shaaunak/rhythmscope"
+license: MIT
+keywords:
+  - electrocardiography
+  - arrhythmia-classification
+  - deep-learning
+  - uncertainty-calibration
+  - selective-classification
+  - mit-bih
+  - physionet
+references:
+  - type: article
+    authors:
+      - family-names: "de Chazal"
+        given-names: "Philip"
+      - family-names: "O'Dwyer"
+        given-names: "Maria"
+      - family-names: "Reilly"
+        given-names: "Richard B."
+    title: "A patient-adapting heartbeat classification system using ECG morphology and rhythm features"
+    journal: "IEEE Transactions on Biomedical Engineering"
+    volume: 51
+    issue: 7
+    pages: "1196-1206"
+    year: 2004
+    doi: "10.1109/TBME.2004.827359"
+  - type: article
+    authors:
+      - family-names: "Goldberger"
+        given-names: "Ary L."
+      - family-names: "Amaral"
+        given-names: "Luis A. N."
+      - family-names: "Glass"
+        given-names: "Leon"
+      - family-names: "Hausdorff"
+        given-names: "Jeffrey M."
+      - family-names: "Ivanov"
+        given-names: "Plamen Ch."
+      - family-names: "Mark"
+        given-names: "Roger G."
+      - family-names: "Mietus"
+        given-names: "Joseph E."
+      - family-names: "Moody"
+        given-names: "George B."
+      - family-names: "Peng"
+        given-names: "Chung-Kang"
+      - family-names: "Stanley"
+        given-names: "H. Eugene"
+    title: "PhysioBank, PhysioToolkit, and PhysioNet: Components of a new research resource for complex physiologic signals"
+    journal: "Circulation"
+    volume: 101
+    issue: 23
+    pages: "e215-e220"
+    year: 2000

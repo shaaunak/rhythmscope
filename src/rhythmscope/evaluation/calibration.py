@@ -75,6 +75,59 @@ def compute_ece(probs: np.ndarray, labels: np.ndarray, n_bins: int = 10) -> Tupl
     return float(ece), bin_stats
 
 
+def compute_equal_mass_ece(probs: np.ndarray, labels: np.ndarray, n_bins: int = 10) -> Tuple[float, List[Dict[str, Any]]]:
+    """
+    Computes Adaptive Equal-Mass (Quantile) Expected Calibration Error.
+    Each bin contains approximately the same number of samples (N / n_bins).
+    """
+    confidences = np.max(probs, axis=1)
+    predictions = np.argmax(probs, axis=1)
+    accuracies = (predictions == labels).astype(float)
+    
+    n_samples = len(labels)
+    # Quantile thresholds
+    quantiles = np.linspace(0.0, 1.0, n_bins + 1)
+    bin_edges = np.quantile(confidences, quantiles)
+    
+    ece = 0.0
+    bin_stats = []
+    
+    for i in range(n_bins):
+        q_low, q_high = bin_edges[i], bin_edges[i + 1]
+        if i == n_bins - 1:
+            in_bin = (confidences >= q_low) & (confidences <= q_high)
+        else:
+            in_bin = (confidences >= q_low) & (confidences < q_high)
+            
+        bin_count = int(np.sum(in_bin))
+        if bin_count > 0:
+            bin_acc = float(np.mean(accuracies[in_bin]))
+            bin_conf = float(np.mean(confidences[in_bin]))
+            weight = bin_count / n_samples
+            ece += weight * abs(bin_acc - bin_conf)
+        else:
+            bin_acc = 0.0
+            bin_conf = float((q_low + q_high) / 2.0)
+            
+        bin_stats.append({
+            "bin_index": i,
+            "quantile_lower": round(float(quantiles[i]), 2),
+            "quantile_upper": round(float(quantiles[i + 1]), 2),
+            "confidence_lower": round(float(q_low), 4),
+            "confidence_upper": round(float(q_high), 4),
+            "count": bin_count,
+            "accuracy": round(bin_acc, 4),
+            "confidence": round(bin_conf, 4)
+        })
+        
+    return float(ece), bin_stats
+
+
+def compute_nll(logits: torch.Tensor, targets: torch.Tensor) -> float:
+    """Computes Negative Log Likelihood (Cross-Entropy)."""
+    return float(F.cross_entropy(logits, targets).item())
+
+
 def compute_brier_score(probs: np.ndarray, labels: np.ndarray, n_classes: int = 4) -> float:
     """Computes multi-class Brier score: mean squared error between probabilities and one-hot labels."""
     one_hot = np.zeros_like(probs)
@@ -194,7 +247,9 @@ def calibrate_development_abstention(
         
     # Uncalibrated metrics
     ece_raw, bins_raw = compute_ece(raw_probs, y_val, n_bins=10)
+    ece_mass_raw, bins_mass_raw = compute_equal_mass_ece(raw_probs, y_val, n_bins=10)
     brier_raw = compute_brier_score(raw_probs, y_val, n_classes=4)
+    nll_raw = compute_nll(unscaled_logits, y_t)
     
     # Temperature scaling fit
     scaler = TemperatureScaler()
@@ -206,9 +261,13 @@ def calibrate_development_abstention(
         calibrated_probs = F.softmax(calibrated_logits, dim=1).numpy()
         
     ece_calibrated, bins_calibrated = compute_ece(calibrated_probs, y_val, n_bins=10)
+    ece_mass_calibrated, bins_mass_calibrated = compute_equal_mass_ece(calibrated_probs, y_val, n_bins=10)
     brier_calibrated = compute_brier_score(calibrated_probs, y_val, n_classes=4)
+    nll_calibrated = compute_nll(calibrated_logits, y_t)
     
-    logger.info(f"Uncalibrated ECE: {ece_raw:.4f} -> Calibrated ECE: {ece_calibrated:.4f}")
+    logger.info(f"Uncalibrated ECE (equal-width): {ece_raw:.4f} -> Calibrated: {ece_calibrated:.4f}")
+    logger.info(f"Uncalibrated ECE (equal-mass): {ece_mass_raw:.4f} -> Calibrated: {ece_mass_calibrated:.4f}")
+    logger.info(f"Uncalibrated NLL: {nll_raw:.4f} -> Calibrated NLL: {nll_calibrated:.4f}")
     logger.info(f"Uncalibrated Brier: {brier_raw:.4f} -> Calibrated Brier: {brier_calibrated:.4f}")
     
     # Selective risk / coverage analysis
@@ -253,6 +312,16 @@ def calibrate_development_abstention(
             "calibrated": round(float(ece_calibrated), 4),
             "bins_uncalibrated": bins_raw,
             "bins_calibrated": bins_calibrated
+        },
+        "ece_equal_mass": {
+            "uncalibrated": round(float(ece_mass_raw), 4),
+            "calibrated": round(float(ece_mass_calibrated), 4),
+            "bins_uncalibrated": bins_mass_raw,
+            "bins_calibrated": bins_mass_calibrated
+        },
+        "nll": {
+            "uncalibrated": round(float(nll_raw), 4),
+            "calibrated": round(float(nll_calibrated), 4)
         },
         "brier_score": {
             "uncalibrated": round(float(brier_raw), 4),

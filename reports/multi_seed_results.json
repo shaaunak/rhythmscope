@@ -1,0 +1,800 @@
+{
+  "seeds": [
+    42,
+    1337,
+    2024
+  ],
+  "device": "mps",
+  "seed_runs": {
+    "42": {
+      "majority": {
+        "accuracy": 0.8871,
+        "macro_f1": 0.235,
+        "weighted_f1": 0.834,
+        "s_sensitivity": 0.0,
+        "s_ppv": 0.0,
+        "v_sensitivity": 0.0,
+        "v_ppv": 0.0,
+        "f_sensitivity": 0.0,
+        "f_ppv": 0.0,
+        "per_class": {
+          "N": {
+            "precision": 0.8871,
+            "recall": 1.0,
+            "f1_score": 0.9402,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 387
+          }
+        }
+      },
+      "random_forest": {
+        "accuracy": 0.8468,
+        "macro_f1": 0.4385,
+        "weighted_f1": 0.8709,
+        "s_sensitivity": 0.1117,
+        "s_ppv": 0.166,
+        "v_sensitivity": 0.8001,
+        "v_ppv": 0.5038,
+        "f_sensitivity": 0.3152,
+        "f_ppv": 0.0417,
+        "per_class": {
+          "N": {
+            "precision": 0.975,
+            "recall": 0.8862,
+            "f1_score": 0.9285,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.166,
+            "recall": 0.1117,
+            "f1_score": 0.1335,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.5038,
+            "recall": 0.8001,
+            "f1_score": 0.6183,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0417,
+            "recall": 0.3152,
+            "f1_score": 0.0736,
+            "support": 387
+          }
+        }
+      },
+      "waveform_cnn": {
+        "accuracy": 0.7887,
+        "macro_f1": 0.3904,
+        "weighted_f1": 0.8222,
+        "s_sensitivity": 0.0651,
+        "s_ppv": 0.0268,
+        "v_sensitivity": 0.9113,
+        "v_ppv": 0.4849,
+        "f_sensitivity": 0.0207,
+        "f_ppv": 0.0099,
+        "per_class": {
+          "N": {
+            "precision": 0.9468,
+            "recall": 0.817,
+            "f1_score": 0.8771,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.0268,
+            "recall": 0.0651,
+            "f1_score": 0.038,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.4849,
+            "recall": 0.9113,
+            "f1_score": 0.633,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0099,
+            "recall": 0.0207,
+            "f1_score": 0.0134,
+            "support": 387
+          }
+        },
+        "best_val_macro_f1": 0.4586
+      },
+      "hybrid_cnn": {
+        "accuracy": 0.9341,
+        "macro_f1": 0.6271,
+        "weighted_f1": 0.9399,
+        "s_sensitivity": 0.8187,
+        "s_ppv": 0.4542,
+        "v_sensitivity": 0.8529,
+        "v_ppv": 0.9545,
+        "f_sensitivity": 0.0594,
+        "f_ppv": 0.0556,
+        "per_class": {
+          "N": {
+            "precision": 0.9791,
+            "recall": 0.9532,
+            "f1_score": 0.966,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.4542,
+            "recall": 0.8187,
+            "f1_score": 0.5843,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.9545,
+            "recall": 0.8529,
+            "f1_score": 0.9008,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0556,
+            "recall": 0.0594,
+            "f1_score": 0.0574,
+            "support": 387
+          }
+        },
+        "best_val_macro_f1": 0.5542
+      }
+    },
+    "1337": {
+      "majority": {
+        "accuracy": 0.8871,
+        "macro_f1": 0.235,
+        "weighted_f1": 0.834,
+        "s_sensitivity": 0.0,
+        "s_ppv": 0.0,
+        "v_sensitivity": 0.0,
+        "v_ppv": 0.0,
+        "f_sensitivity": 0.0,
+        "f_ppv": 0.0,
+        "per_class": {
+          "N": {
+            "precision": 0.8871,
+            "recall": 1.0,
+            "f1_score": 0.9402,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 387
+          }
+        }
+      },
+      "random_forest": {
+        "accuracy": 0.8478,
+        "macro_f1": 0.4484,
+        "weighted_f1": 0.8729,
+        "s_sensitivity": 0.1442,
+        "s_ppv": 0.2043,
+        "v_sensitivity": 0.8007,
+        "v_ppv": 0.5038,
+        "f_sensitivity": 0.3333,
+        "f_ppv": 0.0434,
+        "per_class": {
+          "N": {
+            "precision": 0.9772,
+            "recall": 0.8858,
+            "f1_score": 0.9293,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.2043,
+            "recall": 0.1442,
+            "f1_score": 0.1691,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.5038,
+            "recall": 0.8007,
+            "f1_score": 0.6185,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0434,
+            "recall": 0.3333,
+            "f1_score": 0.0769,
+            "support": 387
+          }
+        }
+      },
+      "waveform_cnn": {
+        "accuracy": 0.7292,
+        "macro_f1": 0.3879,
+        "weighted_f1": 0.7875,
+        "s_sensitivity": 0.0909,
+        "s_ppv": 0.0305,
+        "v_sensitivity": 0.88,
+        "v_ppv": 0.5012,
+        "f_sensitivity": 0.1395,
+        "f_ppv": 0.0169,
+        "per_class": {
+          "N": {
+            "precision": 0.9467,
+            "recall": 0.7502,
+            "f1_score": 0.837,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.0305,
+            "recall": 0.0909,
+            "f1_score": 0.0456,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.5012,
+            "recall": 0.88,
+            "f1_score": 0.6386,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0169,
+            "recall": 0.1395,
+            "f1_score": 0.0302,
+            "support": 387
+          }
+        },
+        "best_val_macro_f1": 0.46
+      },
+      "hybrid_cnn": {
+        "accuracy": 0.8598,
+        "macro_f1": 0.5778,
+        "weighted_f1": 0.8963,
+        "s_sensitivity": 0.5393,
+        "s_ppv": 0.4222,
+        "v_sensitivity": 0.9082,
+        "v_ppv": 0.8761,
+        "f_sensitivity": 0.1318,
+        "f_ppv": 0.0128,
+        "per_class": {
+          "N": {
+            "precision": 0.9737,
+            "recall": 0.8764,
+            "f1_score": 0.9225,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.4222,
+            "recall": 0.5393,
+            "f1_score": 0.4736,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.8761,
+            "recall": 0.9082,
+            "f1_score": 0.8919,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0128,
+            "recall": 0.1318,
+            "f1_score": 0.0233,
+            "support": 387
+          }
+        },
+        "best_val_macro_f1": 0.5462
+      }
+    },
+    "2024": {
+      "majority": {
+        "accuracy": 0.8871,
+        "macro_f1": 0.235,
+        "weighted_f1": 0.834,
+        "s_sensitivity": 0.0,
+        "s_ppv": 0.0,
+        "v_sensitivity": 0.0,
+        "v_ppv": 0.0,
+        "f_sensitivity": 0.0,
+        "f_ppv": 0.0,
+        "per_class": {
+          "N": {
+            "precision": 0.8871,
+            "recall": 1.0,
+            "f1_score": 0.9402,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1_score": 0.0,
+            "support": 387
+          }
+        }
+      },
+      "random_forest": {
+        "accuracy": 0.8456,
+        "macro_f1": 0.4422,
+        "weighted_f1": 0.8705,
+        "s_sensitivity": 0.119,
+        "s_ppv": 0.1776,
+        "v_sensitivity": 0.8026,
+        "v_ppv": 0.5095,
+        "f_sensitivity": 0.3359,
+        "f_ppv": 0.0427,
+        "per_class": {
+          "N": {
+            "precision": 0.9747,
+            "recall": 0.8843,
+            "f1_score": 0.9273,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.1776,
+            "recall": 0.119,
+            "f1_score": 0.1425,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.5095,
+            "recall": 0.8026,
+            "f1_score": 0.6233,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0427,
+            "recall": 0.3359,
+            "f1_score": 0.0757,
+            "support": 387
+          }
+        }
+      },
+      "waveform_cnn": {
+        "accuracy": 0.7677,
+        "macro_f1": 0.3523,
+        "weighted_f1": 0.8006,
+        "s_sensitivity": 0.0662,
+        "s_ppv": 0.0622,
+        "v_sensitivity": 0.8585,
+        "v_ppv": 0.3253,
+        "f_sensitivity": 0.0233,
+        "f_ppv": 0.0059,
+        "per_class": {
+          "N": {
+            "precision": 0.9427,
+            "recall": 0.7973,
+            "f1_score": 0.864,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.0622,
+            "recall": 0.0662,
+            "f1_score": 0.0642,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.3253,
+            "recall": 0.8585,
+            "f1_score": 0.4718,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0059,
+            "recall": 0.0233,
+            "f1_score": 0.0094,
+            "support": 387
+          }
+        },
+        "best_val_macro_f1": 0.4695
+      },
+      "hybrid_cnn": {
+        "accuracy": 0.9339,
+        "macro_f1": 0.6282,
+        "weighted_f1": 0.9415,
+        "s_sensitivity": 0.7643,
+        "s_ppv": 0.5335,
+        "v_sensitivity": 0.8629,
+        "v_ppv": 0.9315,
+        "f_sensitivity": 0.0362,
+        "f_ppv": 0.0156,
+        "per_class": {
+          "N": {
+            "precision": 0.9789,
+            "recall": 0.9547,
+            "f1_score": 0.9666,
+            "support": 42180
+          },
+          "S": {
+            "precision": 0.5335,
+            "recall": 0.7643,
+            "f1_score": 0.6284,
+            "support": 1782
+          },
+          "V": {
+            "precision": 0.9315,
+            "recall": 0.8629,
+            "f1_score": 0.8959,
+            "support": 3201
+          },
+          "F": {
+            "precision": 0.0156,
+            "recall": 0.0362,
+            "f1_score": 0.0218,
+            "support": 387
+          }
+        },
+        "best_val_macro_f1": 0.5937
+      }
+    }
+  },
+  "aggregated": {
+    "majority": {
+      "accuracy": {
+        "mean": 0.8871,
+        "std": 0.0,
+        "values": [
+          0.8871,
+          0.8871,
+          0.8871
+        ]
+      },
+      "macro_f1": {
+        "mean": 0.235,
+        "std": 0.0,
+        "values": [
+          0.235,
+          0.235,
+          0.235
+        ]
+      },
+      "weighted_f1": {
+        "mean": 0.834,
+        "std": 0.0,
+        "values": [
+          0.834,
+          0.834,
+          0.834
+        ]
+      },
+      "s_sensitivity": {
+        "mean": 0.0,
+        "std": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "s_ppv": {
+        "mean": 0.0,
+        "std": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "v_sensitivity": {
+        "mean": 0.0,
+        "std": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "v_ppv": {
+        "mean": 0.0,
+        "std": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "f_sensitivity": {
+        "mean": 0.0,
+        "std": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "f_ppv": {
+        "mean": 0.0,
+        "std": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "random_forest": {
+      "accuracy": {
+        "mean": 0.8467,
+        "std": 0.0009,
+        "values": [
+          0.8468,
+          0.8478,
+          0.8456
+        ]
+      },
+      "macro_f1": {
+        "mean": 0.443,
+        "std": 0.0041,
+        "values": [
+          0.4385,
+          0.4484,
+          0.4422
+        ]
+      },
+      "weighted_f1": {
+        "mean": 0.8714,
+        "std": 0.001,
+        "values": [
+          0.8709,
+          0.8729,
+          0.8705
+        ]
+      },
+      "s_sensitivity": {
+        "mean": 0.125,
+        "std": 0.0139,
+        "values": [
+          0.1117,
+          0.1442,
+          0.119
+        ]
+      },
+      "s_ppv": {
+        "mean": 0.1826,
+        "std": 0.016,
+        "values": [
+          0.166,
+          0.2043,
+          0.1776
+        ]
+      },
+      "v_sensitivity": {
+        "mean": 0.8011,
+        "std": 0.0011,
+        "values": [
+          0.8001,
+          0.8007,
+          0.8026
+        ]
+      },
+      "v_ppv": {
+        "mean": 0.5057,
+        "std": 0.0027,
+        "values": [
+          0.5038,
+          0.5038,
+          0.5095
+        ]
+      },
+      "f_sensitivity": {
+        "mean": 0.3281,
+        "std": 0.0092,
+        "values": [
+          0.3152,
+          0.3333,
+          0.3359
+        ]
+      },
+      "f_ppv": {
+        "mean": 0.0426,
+        "std": 0.0007,
+        "values": [
+          0.0417,
+          0.0434,
+          0.0427
+        ]
+      }
+    },
+    "waveform_cnn": {
+      "accuracy": {
+        "mean": 0.7619,
+        "std": 0.0246,
+        "values": [
+          0.7887,
+          0.7292,
+          0.7677
+        ]
+      },
+      "macro_f1": {
+        "mean": 0.3769,
+        "std": 0.0174,
+        "values": [
+          0.3904,
+          0.3879,
+          0.3523
+        ]
+      },
+      "weighted_f1": {
+        "mean": 0.8034,
+        "std": 0.0143,
+        "values": [
+          0.8222,
+          0.7875,
+          0.8006
+        ]
+      },
+      "s_sensitivity": {
+        "mean": 0.0741,
+        "std": 0.0119,
+        "values": [
+          0.0651,
+          0.0909,
+          0.0662
+        ]
+      },
+      "s_ppv": {
+        "mean": 0.0398,
+        "std": 0.0159,
+        "values": [
+          0.0268,
+          0.0305,
+          0.0622
+        ]
+      },
+      "v_sensitivity": {
+        "mean": 0.8833,
+        "std": 0.0217,
+        "values": [
+          0.9113,
+          0.88,
+          0.8585
+        ]
+      },
+      "v_ppv": {
+        "mean": 0.4371,
+        "std": 0.0794,
+        "values": [
+          0.4849,
+          0.5012,
+          0.3253
+        ]
+      },
+      "f_sensitivity": {
+        "mean": 0.0612,
+        "std": 0.0554,
+        "values": [
+          0.0207,
+          0.1395,
+          0.0233
+        ]
+      },
+      "f_ppv": {
+        "mean": 0.0109,
+        "std": 0.0045,
+        "values": [
+          0.0099,
+          0.0169,
+          0.0059
+        ]
+      }
+    },
+    "hybrid_cnn": {
+      "accuracy": {
+        "mean": 0.9093,
+        "std": 0.035,
+        "values": [
+          0.9341,
+          0.8598,
+          0.9339
+        ]
+      },
+      "macro_f1": {
+        "mean": 0.611,
+        "std": 0.0235,
+        "values": [
+          0.6271,
+          0.5778,
+          0.6282
+        ]
+      },
+      "weighted_f1": {
+        "mean": 0.9259,
+        "std": 0.0209,
+        "values": [
+          0.9399,
+          0.8963,
+          0.9415
+        ]
+      },
+      "s_sensitivity": {
+        "mean": 0.7074,
+        "std": 0.1209,
+        "values": [
+          0.8187,
+          0.5393,
+          0.7643
+        ]
+      },
+      "s_ppv": {
+        "mean": 0.47,
+        "std": 0.0468,
+        "values": [
+          0.4542,
+          0.4222,
+          0.5335
+        ]
+      },
+      "v_sensitivity": {
+        "mean": 0.8747,
+        "std": 0.0241,
+        "values": [
+          0.8529,
+          0.9082,
+          0.8629
+        ]
+      },
+      "v_ppv": {
+        "mean": 0.9207,
+        "std": 0.0329,
+        "values": [
+          0.9545,
+          0.8761,
+          0.9315
+        ]
+      },
+      "f_sensitivity": {
+        "mean": 0.0758,
+        "std": 0.0407,
+        "values": [
+          0.0594,
+          0.1318,
+          0.0362
+        ]
+      },
+      "f_ppv": {
+        "mean": 0.028,
+        "std": 0.0195,
+        "values": [
+          0.0556,
+          0.0128,
+          0.0156
+        ]
+      }
+    }
+  }
+}

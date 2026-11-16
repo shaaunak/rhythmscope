@@ -36,7 +36,8 @@ DS2_STRICT_RECORDS = [
 
 # Patient-held-out validation set drawn strictly from DS1:
 # Chosen to represent both normal rhythms and arrhythmia morphologies (S, V, F) without data leakage
-DS1_VAL_RECORDS = ["115", "119", "208", "223"]
+# Records: 115 (normal baseline), 118 (S-arrhythmias), 205 (V/F arrhythmias), 223 (S/V/F arrhythmias)
+DS1_VAL_RECORDS = ["115", "118", "205", "223"]
 DS1_TRAIN_RECORDS = [r for r in DS1_RECORDS if r not in DS1_VAL_RECORDS]
 
 # AAMI 1998 mapping from MIT-BIH annotation symbols to 5 superclasses:
