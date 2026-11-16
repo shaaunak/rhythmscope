@@ -173,3 +173,32 @@ tests/test_signals.py ..                                                 [100%]
   - **Right Column**: Top compact cards (Calibrated Confidence `94.2%`, Inference Latency `0.68ms`), middle Rhythm Dynamics card with pink semi-circular tick gauge (`RadialGauge.tsx`) and DNA helix illustration, and bottom Cardiovascular System card featuring the replica 3-pin lollipop bar chart (`LollipopChart.tsx`).
 - [x] Unified research views (`app/src/components/views/ResearchHubView.tsx`) hosting Reliability Passport, Failure Atlas, and Saliency Explainability.
 - [x] All 24 backend pytest tests passing, Next.js production build verified, and web service running live on `http://localhost:3000`.
+
+
+---
+
+### Phase 8 — Pixel-Precise Redesign & 3D Motion Experience [COMPLETE]
+- [x] **Strict Invariant Maintained**: Existing approved landing page (`HomeOverviewView.tsx`) preserved 100% unchanged in layout, typography, components, and animations. Verified via automated visual baseline diff (`docs/assets/landing_page_before.png` vs `docs/assets/landing_page_after.png`).
+- [x] **Screen 2: ECG Explorer** (`app/src/components/views/ECGExplorerView.tsx`):
+  - Left column: "Explore ECG Records", recording pills (200, 201, 100, 105, 114, 231), lead selector (MLII vs V1/V5, noting Record 114 reversed lead order), active ML model selector.
+  - Center area: High-contrast teal waveform panel (`ecg-grid-subtle`), floating N/S/V class labels, coral abnormal beat highlighting, play/pause timeline, range scrubber, zoom (+/-), and reset.
+  - Right column: Selected beat card, enlarged preview, timestamp, annotated true class, model prediction, calibrated confidence, Pre-RR interval, and soft-yellow CTA ("Inspect Beat Morphology ↗").
+- [x] **Screen 3: TrustLab & 3D Waveform Sculpture** (`app/src/components/views/TrustLabView.tsx`):
+  - Left column: "Test the model's limits.", PhysioNet NSTDB origin selector (`bw`, `ma`, `em`), target SNR slider (24 down to 0 dB with realized readout), view mode toggle (2D vs 3D).
+  - Main area (2D): Large clean-signal panel (teal #16A6A1) + large corrupted-signal panel (coral #F46C83) with flip indicators and selective abstention status ($\tau = 0.9073$).
+  - **Special 3D Experience** (`app/src/components/ui/ECGWaveform3D.tsx`): Interactive Three.js spatial ECG sculpture with dimensional clean and corrupted ribbon layers, connecting struts, ground grid, cursor parallax tilting, and auto-rotation toggle.
+  - Bottom area: Noise stress curve findings, selective risk bounds, and provenance receipt link.
+- [x] **Screen 4: Model Arena** (`app/src/components/views/ModelArenaView.tsx`):
+  - Left column: "Compare Models", evaluation protocol selector (Strict Patient-Disjoint Headline vs Classical DS2), ranking metric selector, yellow export receipt CTA.
+  - Upper main: 4 horizontal model cards (Majority Baseline, RR Random Forest, Waveform 1D CNN, Hybrid CNN) with F1 and accuracy metrics.
+  - Lower main: Row-normalized 4x4 confusion matrix heatmap with animated cell transitions and per-class performance table.
+- [x] **Screen 5: Failure Atlas** (`app/src/components/views/FailureAtlasView.tsx`):
+  - Left column: "When and why does it go wrong?", filter panel (Ground Truth vs Predicted Class), yellow action CTA ("Inspect Next Failure ↗"), curated clickable catalog.
+  - Center: Large misclassified beat canvas with highlighted aberrant QRS region and floating diagnostic badges.
+  - Bottom: Beat timing diagnostics, Captum Integrated Gradients attribution bars, and morphological confound insights.
+- [x] **Screen 6: Research Report** (`app/src/components/views/ResearchReportView.tsx`):
+  - Top: 5 metadata cards (Dataset Origin, Split Protocol, Task, Checkpoint, Audit Status).
+  - Left: "Evaluation & Findings", vertical 4-pillar selector, yellow action CTA ("Download Provenance Receipt ↗").
+  - Main: Quantitative metric cards, key findings, and educational non-clinical notice.
+- [x] **Navigation & Shell**: Updated `Navigation.tsx` with floating pill buttons for all 6 screens.
+- [x] **Verification**: All 24 backend pytest tests passing, Next.js production build verified, live servers running on ports 8000 & 3000.

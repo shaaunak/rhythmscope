@@ -6,11 +6,10 @@ import {
   Activity,
   ShieldCheck,
   BarChart2,
-  BookOpen,
+  AlertCircle,
+  FileText,
   Search,
-  Bell,
   Cpu,
-  User,
 } from "lucide-react";
 
 export type TabKey =
@@ -18,7 +17,8 @@ export type TabKey =
   | "ecg_explorer"
   | "trustlab"
   | "model_arena"
-  | "research";
+  | "failure_atlas"
+  | "research_report";
 
 interface NavigationProps {
   activeTab: TabKey;
@@ -36,20 +36,20 @@ export const Navigation: React.FC<NavigationProps> = ({
     { key: "ecg_explorer", label: "ECG Explorer", icon: Activity },
     { key: "trustlab", label: "TrustLab", icon: ShieldCheck },
     { key: "model_arena", label: "Model Arena", icon: BarChart2 },
-    { key: "research", label: "Research", icon: BookOpen },
+    { key: "failure_atlas", label: "Failure Atlas", icon: AlertCircle },
+    { key: "research_report", label: "Research Report", icon: FileText },
   ] as const;
 
   return (
     <header className="w-full flex items-center justify-between pb-6 pt-1 select-none">
       {/* ========================================================= */}
-      {/* LEFT: Custom Brand Logo & Wordmark (like Medcure in screenshot) */}
+      {/* LEFT: Custom Brand Logo & Wordmark (Preserved)           */}
       {/* ========================================================= */}
       <div
         onClick={() => onSelectTab("overview")}
         className="flex items-center space-x-2.5 cursor-pointer group"
       >
         <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white shadow-soft group-hover:scale-105 transition-transform">
-          {/* Geometric Custom RhythmScope Mark */}
           <svg
             viewBox="0 0 24 24"
             className="w-4 h-4 text-white"
@@ -71,9 +71,9 @@ export const Navigation: React.FC<NavigationProps> = ({
       </div>
 
       {/* ========================================================= */}
-      {/* CENTER: Floating Pill Navigation (Overview | ECG Explorer | TrustLab | Model Arena | Research) */}
+      {/* CENTER: Floating Pill Navigation                         */}
       {/* ========================================================= */}
-      <nav className="hidden md:flex items-center space-x-2 bg-transparent">
+      <nav className="hidden lg:flex items-center space-x-1.5 bg-transparent">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.key;
@@ -81,7 +81,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             <button
               key={item.key}
               onClick={() => onSelectTab(item.key as TabKey)}
-              className={`flex items-center space-x-2 px-5 py-2.5 rounded-full text-xs font-semibold tracking-tight transition-all duration-200 ${
+              className={`flex items-center space-x-2 px-4 py-2 rounded-full text-xs font-semibold tracking-tight transition-all duration-200 ${
                 isActive
                   ? "bg-primary text-white shadow-float scale-[1.02]"
                   : "bg-white text-secondary hover:text-primary shadow-soft hover:shadow-float border border-white"
@@ -117,12 +117,11 @@ export const Navigation: React.FC<NavigationProps> = ({
           <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-teal" />
         </button>
 
-        {/* Profile / Research Badge (like Albert Drobo in Medcure screenshot) */}
+        {/* Profile / Research Badge */}
         <div
           onClick={onOpenReceipt}
           className="flex items-center space-x-2.5 pl-1.5 pr-3 py-1 bg-white rounded-full shadow-soft border border-white cursor-pointer hover:shadow-float transition-all"
         >
-          {/* Avatar circle */}
           <div className="w-8 h-8 rounded-full bg-surface-lavender border border-white flex items-center justify-center text-primary font-bold text-xs">
             RS
           </div>

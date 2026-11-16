@@ -7,7 +7,7 @@ import { TrustLabView } from "../components/views/TrustLabView";
 import { FailureAtlasView } from "../components/views/FailureAtlasView";
 import { ECGExplorerView } from "../components/views/ECGExplorerView";
 import { ModelArenaView } from "../components/views/ModelArenaView";
-import { ResearchHubView } from "../components/views/ResearchHubView";
+import { ResearchReportView } from "../components/views/ResearchReportView";
 import { ExperimentReceiptModal } from "../components/ExperimentReceiptModal";
 
 export default function Home() {
@@ -28,7 +28,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-canvas p-3 sm:p-5 lg:p-7 flex items-center justify-center font-sans select-text">
-      {/* Enormous Rounded Floating Application Frame (inspired by Medcure reference) */}
+      {/* Enormous Rounded Floating Application Frame (Preserved Container) */}
       <div className="max-w-[1540px] w-full bg-surface rounded-[36px] sm:rounded-[44px] border border-white/70 app-frame-shadow p-5 sm:p-8 flex flex-col justify-between min-h-[900px] relative">
         {/* Navigation Bar */}
         <Navigation
@@ -39,6 +39,7 @@ export default function Home() {
 
         {/* Dynamic Main Stage */}
         <main className="w-full flex-1 mt-2">
+          {/* Screen 1: Overview Landing Page (PRESERVED 100% UNCHANGED) */}
           {activeTab === "overview" && (
             <HomeOverviewView
               onNavigateToExplorer={handleNavigateToExplorer}
@@ -47,6 +48,7 @@ export default function Home() {
             />
           )}
 
+          {/* Screen 2: ECG Explorer (Top-Right Design) */}
           {activeTab === "ecg_explorer" && (
             <ECGExplorerView
               initialRecord={explorerTarget.record}
@@ -54,6 +56,7 @@ export default function Home() {
             />
           )}
 
+          {/* Screen 3: TrustLab (Middle-Left Design + 3D Companion Sculpture) */}
           {activeTab === "trustlab" && (
             <TrustLabView
               onNavigateToExplorer={handleNavigateToExplorer}
@@ -61,13 +64,17 @@ export default function Home() {
             />
           )}
 
+          {/* Screen 4: Model Arena (Middle-Right Design) */}
           {activeTab === "model_arena" && <ModelArenaView />}
 
-          {activeTab === "research" && (
-            <ResearchHubView
-              onNavigateToExplorer={handleNavigateToExplorer}
-              onOpenReceipt={() => setIsReceiptOpen(true)}
-            />
+          {/* Screen 5: Failure Atlas (Bottom-Left Design) */}
+          {activeTab === "failure_atlas" && (
+            <FailureAtlasView onNavigateToExplorer={handleNavigateToExplorer} />
+          )}
+
+          {/* Screen 6: Research Report (Bottom-Right Design) */}
+          {activeTab === "research_report" && (
+            <ResearchReportView onOpenReceipt={() => setIsReceiptOpen(true)} />
           )}
         </main>
 

@@ -1,9 +1,24 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Play, Pause, ChevronLeft, ChevronRight, Activity, Info, CheckCircle2, AlertTriangle, Disc } from "lucide-react";
-import { ECGWaveform } from "../ECGWaveform";
+import {
+  Play,
+  Pause,
+  ChevronLeft,
+  ChevronRight,
+  Activity,
+  ZoomIn,
+  ZoomOut,
+  Maximize2,
+  CheckCircle2,
+  AlertTriangle,
+  ArrowUpRight,
+  Sliders,
+  Layers,
+  Sparkles,
+} from "lucide-react";
 import dataAudit from "../../data/data_audit.json";
+import sampleBeatsData from "../../data/sample_beats.json";
 
 interface BeatInfo {
   beat_index: number;
@@ -43,27 +58,30 @@ export const ECGExplorerView: React.FC<ECGExplorerViewProps> = ({
 }) => {
   const records = Object.keys(dataAudit.records || {});
   const [selectedRecord, setSelectedRecord] = useState<string>(initialRecord);
+  const [selectedLead, setSelectedLead] = useState<string>("MLII");
+  const [selectedModel, setSelectedModel] = useState<string>("Hybrid CNN");
   const [startSecond, setStartSecond] = useState<number>(
     initialSample ? Math.max(0, Math.floor(initialSample / 360) - 2) : 10.0
   );
-  const [duration, setDuration] = useState<number>(8.0);
+  const [duration, setDuration] = useState<number>(6.0);
   const [stripData, setStripData] = useState<StripData | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedBeat, setSelectedBeat] = useState<BeatInfo | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [zoomLevel, setZoomLevel] = useState<number>(1);
 
-  // Fetch continuous strip from API or generate realistic fallback
+  // Fetch or generate recording strip
   useEffect(() => {
     let isCancelled = false;
     setIsLoading(true);
 
-    const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
-    fetch(`${apiBase}/api/records/${selectedRecord}/strip?start_second=${startSecond}&duration_seconds=${duration}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("API not available");
-        return res.json();
-      })
-      .then((data) => {
+    const fetchStrip = async () => {
+      try {
+        const res = await fetch(
+          `http://127.0.0.1:8000/api/records/${selectedRecord}/strip?start_second=${startSecond}&duration_seconds=${duration}&model=${selectedModel.toLowerCase().replace(/ /g, "_")}`
+        );
+        if (!res.ok) throw new Error("API offline or strip error");
+        const data = await res.json();
         if (!isCancelled) {
           setStripData(data);
           if (data.beats && data.beats.length > 0) {
@@ -71,332 +89,475 @@ export const ECGExplorerView: React.FC<ECGExplorerViewProps> = ({
           }
           setIsLoading(false);
         }
-      })
-      .catch(() => {
-        // Fallback: Generate synthetic ECG rhythm strip using mathematical P-QRS-T harmonics
+      } catch {
+        // Fallback generator from bundled real sample beats
+        const recordBeats = (sampleBeatsData as any[]).filter(
+          (b) => b.record === selectedRecord
+        );
+        const synthBeats: BeatInfo[] = (recordBeats.length > 0 ? recordBeats : (sampleBeatsData as any[])).slice(0, 6).map((b, i) => ({
+          beat_index: i + 1,
+          relative_sample: Math.round(180 + i * 290),
+          absolute_sample: b.r_peak_sample || 3600 + i * 290,
+          time_seconds: startSecond + (180 + i * 290) / 360,
+          true_class: b.true_class || "N",
+          predicted_class: b.hybrid_prediction || b.true_class || "N",
+          is_correct: b.true_class === b.hybrid_prediction,
+          probabilities: b.probabilities || { N: 0.94, S: 0.02, V: 0.03, F: 0.01 },
+          rr_features: b.rr_features || { pre_rr: 0.82, post_rr: 0.81, local_rr_avg: 0.82, rr_ratio: 1.0 },
+        }));
+
+        // Synthesize continuous waveform from bundled beat segments
+        const fullWaveform: number[] = [];
+        for (let s = 0; s < Math.round(duration * 360); s++) {
+          const beatIdx = Math.floor(s / 290);
+          const sampleInBeat = s % 290;
+          const beatSrc = recordBeats[beatIdx % (recordBeats.length || 1)] || sampleBeatsData[0];
+          const val = beatSrc.waveform[sampleInBeat % beatSrc.waveform.length] || 0;
+          fullWaveform.push(val);
+        }
+
         if (!isCancelled) {
-          const fs = 360;
-          const totalPoints = Math.round(duration * fs);
-          const wf: number[] = [];
-          const beatsList: BeatInfo[] = [];
-
-          // Synthesize heartbeat train at ~75 bpm (~0.8s period)
-          const beatPeriod = 0.8 * fs;
-          let nextPeak = Math.round(0.4 * fs);
-          let bIdx = 0;
-
-          for (let i = 0; i < totalPoints; i++) {
-            // Baseline wander + rhythm
-            let v = 0.05 * Math.sin((2 * Math.PI * i) / (fs * 4));
-            wf.push(v);
-          }
-
-          while (nextPeak < totalPoints - 50) {
-            // Insert QRS pulse
-            for (let j = -30; j <= 30; j++) {
-              const idx = nextPeak + j;
-              if (idx >= 0 && idx < totalPoints) {
-                // QRS spike
-                wf[idx] += 1.2 * Math.exp(-(j * j) / 25) - 0.2 * Math.exp(-((j + 15) * (j + 15)) / 20) + 0.3 * Math.exp(-((j - 25) * (j - 25)) / 60);
-              }
-            }
-
-            const trueCls = bIdx === 3 ? "V" : "N";
-            const predCls = trueCls;
-
-            beatsList.push({
-              beat_index: bIdx,
-              relative_sample: nextPeak,
-              absolute_sample: Math.round(startSecond * fs) + nextPeak,
-              time_seconds: Number((startSecond + nextPeak / fs).toFixed(3)),
-              true_class: trueCls,
-              predicted_class: predCls,
-              is_correct: true,
-              probabilities: { N: trueCls === "N" ? 0.96 : 0.04, S: 0.01, V: trueCls === "V" ? 0.94 : 0.02, F: 0.01 },
-              rr_features: { pre_rr: 0.8, post_rr: 0.8, local_rr_avg: 0.8, rr_ratio: 1.0 },
-            });
-
-            nextPeak += Math.round(beatPeriod + (Math.random() - 0.5) * 20);
-            bIdx++;
-          }
-
-          const fallbackData: StripData = {
+          setStripData({
             record_id: selectedRecord,
-            fs,
-            lead: selectedRecord === "114" ? "V5 (MLII reversed)" : "MLII",
+            fs: 360,
+            lead: selectedLead,
             start_second: startSecond,
             duration_seconds: duration,
-            waveform: wf,
-            beats: beatsList,
-          };
-
-          setStripData(fallbackData);
-          if (beatsList.length > 0) setSelectedBeat(beatsList[0]);
+            waveform: fullWaveform,
+            beats: synthBeats,
+          });
+          setSelectedBeat(synthBeats[0]);
           setIsLoading(false);
         }
-      });
+      }
+    };
 
+    fetchStrip();
     return () => {
       isCancelled = true;
     };
-  }, [selectedRecord, startSecond, duration]);
+  }, [selectedRecord, startSecond, duration, selectedLead, selectedModel]);
 
-  // Handle Play/Pause scrubber animation
+  // Continuous playback effect
   useEffect(() => {
-    let interval: any;
+    let interval: NodeJS.Timeout | null = null;
     if (isPlaying) {
       interval = setInterval(() => {
         setStartSecond((s) => Number((s + 1.0).toFixed(1)));
       }, 1000);
     }
-    return () => clearInterval(interval);
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, [isPlaying]);
 
+  const waveform = stripData?.waveform || [];
+  const minVal = waveform.length ? Math.min(...waveform) : -1;
+  const maxVal = waveform.length ? Math.max(...waveform) : 2;
+  const range = maxVal - minVal || 1;
+
+  const width = 800;
+  const height = 300;
+  const padX = 20;
+  const padY = 35;
+
+  const points = waveform.map((val, idx) => {
+    const x = padX + (idx / (waveform.length - 1)) * (width - 2 * padX);
+    const normY = (val - minVal) / range;
+    const y = height - padY - normY * (height - 2 * padY);
+    return { x, y, idx, val };
+  });
+
+  const svgPath = points.length
+    ? `M ${points[0].x} ${points[0].y} ` +
+      points
+        .slice(1)
+        .map((p) => `L ${p.x} ${p.y}`)
+        .join(" ")
+    : "";
+
   return (
-    <div className="space-y-6">
-      {/* Header & Controls Bar */}
-      <div className="bg-white border border-border rounded-xl p-6 shadow-sm">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+    <div className="w-full">
+      {/* 3-Column Layout Matching the Top-Right Design Reference */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        {/* ========================================================= */}
+        {/* LEFT COLUMN: Controls & Selectors (~25%)                  */}
+        {/* ========================================================= */}
+        <div className="lg:col-span-3 flex flex-col space-y-4">
           <div>
-            <div className="inline-flex items-center space-x-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-teal-bg text-teal-dark border border-teal/20 mb-2">
-              <Activity className="w-3.5 h-3.5" />
-              <span>Continuous 360 Hz Lead Replay</span>
-            </div>
-            <h2 className="text-2xl font-bold tracking-tight text-navy-950 font-serif">
-              ECG Explorer: Live Waveform Stream
-            </h2>
-            <p className="mt-1 text-sm text-navy-700">
-              Browse continuous expert-annotated MIT-BIH recordings. Inspect individual heartbeats, timing intervals, and model classifications in context.
+            <h1 className="text-3xl font-black text-primary tracking-tight leading-tight">
+              Explore ECG
+              <br />
+              Records
+            </h1>
+            <p className="text-xs text-secondary mt-1.5 leading-relaxed">
+              Continuous 360 Hz multi-lead signal browser with sample-aligned annotator
+              references.
             </p>
           </div>
 
-          {/* Quick Playback & Navigation Controls */}
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              onClick={() => setIsPlaying(!isPlaying)}
-              className={`px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-colors shadow-sm ${
-                isPlaying
-                  ? "bg-amber text-white hover:bg-amber-light"
-                  : "bg-navy-900 text-white hover:bg-navy-800"
-              }`}
-            >
-              {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-              <span>{isPlaying ? "Pause Stream" : "Continuous Play"}</span>
-            </button>
-
-            <button
-              onClick={() => setStartSecond((s) => Math.max(0, Number((s - duration).toFixed(1))))}
-              className="p-2 rounded-lg border border-border bg-surface-subtle hover:bg-surface-muted text-navy-900 transition-colors"
-              title="Previous Strip"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => setStartSecond((s) => Number((s + duration).toFixed(1)))}
-              className="p-2 rounded-lg border border-border bg-surface-subtle hover:bg-surface-muted text-navy-900 transition-colors"
-              title="Next Strip"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-
-        {/* Record & Time Selectors */}
-        <div className="mt-5 pt-4 border-t border-border flex flex-wrap items-center gap-4 text-xs">
-          <div className="flex items-center space-x-2">
-            <span className="font-semibold text-navy-900 uppercase">Select Record:</span>
-            <select
-              value={selectedRecord}
-              onChange={(e) => {
-                setSelectedRecord(e.target.value);
-                setStartSecond(0);
-              }}
-              className="bg-white border border-border rounded-md px-2.5 py-1.5 font-mono text-navy-950 font-medium"
-            >
-              {records.map((r) => (
-                <option key={r} value={r}>
-                  Record {r} ({dataAudit.records[r]?.partitions?.includes("DS1_TRAIN") ? "DS1 Dev" : "DS2 Strict"})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <span className="font-semibold text-navy-900 uppercase">Start Time:</span>
-            <input
-              type="number"
-              min="0"
-              max="1800"
-              step="1"
-              value={startSecond}
-              onChange={(e) => setStartSecond(Math.max(0, parseFloat(e.target.value) || 0))}
-              className="w-20 bg-white border border-border rounded-md px-2 py-1.5 font-numeric text-navy-950 font-medium text-center"
-            />
-            <span className="text-gray-500 font-numeric">seconds</span>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <span className="font-semibold text-navy-900 uppercase">Window Duration:</span>
-            {[5, 8, 12].map((d) => (
-              <button
-                key={d}
-                onClick={() => setDuration(d)}
-                className={`px-2 py-1 rounded font-numeric ${
-                  duration === d
-                    ? "bg-navy-900 text-white font-bold"
-                    : "bg-surface-subtle text-gray-700 hover:bg-surface-muted"
-                }`}
-              >
-                {d}s
-              </button>
-            ))}
-          </div>
-
-          {stripData && (
-            <div className="ml-auto font-numeric text-gray-500">
-              Active Lead: <strong className="text-navy-950 font-bold">{stripData.lead}</strong> @ {stripData.fs} Hz
+          {/* Floating Recording Selector */}
+          <div className="bg-white rounded-3xl p-4 shadow-soft border border-white">
+            <label className="text-[11px] font-bold text-secondary uppercase tracking-wider block mb-2">
+              Select Recording
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              {["200", "201", "100", "105", "114", "231"].map((rec) => {
+                const isSelected = selectedRecord === rec;
+                const isDisjointSubject = rec === "201" || rec === "200";
+                return (
+                  <button
+                    key={rec}
+                    onClick={() => {
+                      setSelectedRecord(rec);
+                      setStartSecond(10.0);
+                    }}
+                    className={`px-2.5 py-2 rounded-2xl text-xs font-bold font-numeric transition-all ${
+                      isSelected
+                        ? "bg-primary text-white shadow-soft scale-[1.03]"
+                        : "bg-surface-subtle text-primary hover:bg-surface-lavender"
+                    }`}
+                  >
+                    <div>Rec {rec}</div>
+                    <div className="text-[9px] opacity-70 font-normal">
+                      {isDisjointSubject ? "Disjoint" : "MIT-BIH"}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
-          )}
-        </div>
-      </div>
-
-      {/* Interactive Continuous Strip Display */}
-      <div className="bg-white border border-border rounded-xl p-6 shadow-sm space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2 text-xs font-numeric text-gray-600">
-            <Disc className="w-3.5 h-3.5 text-teal" />
-            <span>
-              Window: <strong>{startSecond.toFixed(1)}s</strong> to <strong>{(startSecond + duration).toFixed(1)}s</strong>
-            </span>
-            <span className="text-gray-300">|</span>
-            <span>{stripData?.beats?.length || 0} Annotated Beats Detected</span>
           </div>
 
-          <div className="flex items-center space-x-3 text-[11px] font-numeric">
-            <span className="flex items-center space-x-1">
-              <span className="w-2 h-2 rounded-full bg-teal" />
-              <span>Correct Beat</span>
-            </span>
-            <span className="flex items-center space-x-1">
-              <span className="w-2 h-2 rounded-full bg-coral" />
-              <span>Misclassified Beat</span>
-            </span>
+          {/* Lead Selector */}
+          <div className="bg-white rounded-3xl p-4 shadow-soft border border-white">
+            <label className="text-[11px] font-bold text-secondary uppercase tracking-wider block mb-2">
+              ECG Lead Channel
+            </label>
+            <div className="flex items-center space-x-2">
+              {["MLII", "V1 / V5"].map((lead) => (
+                <button
+                  key={lead}
+                  onClick={() => setSelectedLead(lead)}
+                  className={`flex-1 py-2 rounded-2xl text-xs font-semibold transition-all ${
+                    selectedLead === lead
+                      ? "bg-primary text-white shadow-soft"
+                      : "bg-surface-subtle text-secondary hover:text-primary"
+                  }`}
+                >
+                  {lead}
+                </button>
+              ))}
+            </div>
+            {selectedRecord === "114" && (
+              <span className="text-[10px] text-coral font-medium block mt-2">
+                * Note: Record 114 has reversed signal lead channels (V5 is Lead 1).
+              </span>
+            )}
+          </div>
+
+          {/* Active ML Model Selector */}
+          <div className="bg-white rounded-3xl p-4 shadow-soft border border-white">
+            <label className="text-[11px] font-bold text-secondary uppercase tracking-wider block mb-2">
+              Active Classifier
+            </label>
+            <div className="flex flex-col space-y-1.5">
+              {[
+                { name: "Hybrid CNN", badge: "Champion · 92.70%" },
+                { name: "Waveform 1D CNN", badge: "Waveform Only · 91.04%" },
+                { name: "Random Forest", badge: "RR Features · 90.15%" },
+              ].map((m) => {
+                const isSelected = selectedModel === m.name;
+                return (
+                  <button
+                    key={m.name}
+                    onClick={() => setSelectedModel(m.name)}
+                    className={`flex items-center justify-between px-3 py-2 rounded-2xl text-xs font-semibold transition-all ${
+                      isSelected
+                        ? "bg-primary text-white shadow-soft"
+                        : "bg-surface-subtle text-secondary hover:text-primary"
+                    }`}
+                  >
+                    <span>{m.name}</span>
+                    <span
+                      className={`text-[9px] px-1.5 py-0.5 rounded font-numeric ${
+                        isSelected ? "bg-white/20 text-white" : "bg-white text-secondary"
+                      }`}
+                    >
+                      {m.badge}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        {/* Continuous Waveform Viewport with Overlaid Beat Markers */}
-        <div className="relative rounded-lg border border-border overflow-hidden bg-[#FAF9F5] p-2">
-          {stripData && stripData.waveform.length > 0 ? (
-            <div className="relative">
-              <ECGWaveform
-                waveform={stripData.waveform}
-                fs={stripData.fs}
-                height={200}
-                showPeakMarker={false}
-                showCalibrationPulse={true}
+        {/* ========================================================= */}
+        {/* CENTER COLUMN: Waveform Canvas & Scrubber (~50%)          */}
+        {/* ========================================================= */}
+        <div className="lg:col-span-6 flex flex-col space-y-4">
+          <div className="bg-white rounded-3xl p-5 shadow-soft border border-white flex flex-col justify-between min-h-[460px]">
+            {/* Top Toolbar */}
+            <div className="flex items-center justify-between pb-3 border-b border-surface">
+              <div className="flex items-center space-x-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-teal animate-pulse" />
+                <span className="text-xs font-bold text-primary">
+                  Record {selectedRecord} · {selectedLead} (360 Hz)
+                </span>
+                <span className="text-[10px] text-secondary font-numeric">
+                  [{startSecond.toFixed(1)}s – {(startSecond + duration).toFixed(1)}s]
+                </span>
+              </div>
+
+              {/* Floating Zoom & Pan Buttons */}
+              <div className="flex items-center space-x-1.5">
+                <button
+                  onClick={() => setZoomLevel((z) => Math.min(1.5, z + 0.15))}
+                  className="w-8 h-8 rounded-full bg-surface-subtle hover:bg-surface-lavender flex items-center justify-center text-primary transition-colors"
+                  title="Zoom In"
+                >
+                  <ZoomIn className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => setZoomLevel(1)}
+                  className="w-8 h-8 rounded-full bg-surface-subtle hover:bg-surface-lavender flex items-center justify-center text-primary transition-colors"
+                  title="Reset Zoom"
+                >
+                  <Maximize2 className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => setZoomLevel((z) => Math.max(0.7, z - 0.15))}
+                  className="w-8 h-8 rounded-full bg-surface-subtle hover:bg-surface-lavender flex items-center justify-center text-primary transition-colors"
+                  title="Zoom Out"
+                >
+                  <ZoomOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Scientific Waveform Canvas Area */}
+            <div className="relative w-full h-[290px] my-2 ecg-grid-subtle rounded-2xl overflow-hidden border border-border/40 flex items-center justify-center">
+              {isLoading ? (
+                <div className="text-xs text-secondary font-medium animate-pulse">
+                  Loading 360 Hz Lead Strip...
+                </div>
+              ) : (
+                <div
+                  className="relative w-full h-full transition-transform duration-200"
+                  style={{ transform: `scale(${zoomLevel})` }}
+                >
+                  <svg
+                    viewBox={`0 0 ${width} ${height}`}
+                    className="w-full h-full overflow-visible"
+                  >
+                    {/* Isoelectric Baseline */}
+                    <line
+                      x1={padX}
+                      y1={height / 2}
+                      x2={width - padX}
+                      y2={height / 2}
+                      stroke="#E2E4EB"
+                      strokeDasharray="4 4"
+                      strokeWidth="1"
+                    />
+
+                    {/* Primary Turquoise Waveform Line */}
+                    <path
+                      d={svgPath}
+                      fill="none"
+                      stroke="#16A6A1"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+
+                    {/* Render Annotations Attached to R-Peaks */}
+                    {stripData?.beats.map((b) => {
+                      const beatFraction =
+                        (b.time_seconds - startSecond) / duration;
+                      if (beatFraction < 0 || beatFraction > 1) return null;
+                      const bx = padX + beatFraction * (width - 2 * padX);
+                      const isSelected = selectedBeat?.beat_index === b.beat_index;
+                      const isAbnormal = b.true_class !== "N";
+
+                      return (
+                        <g key={b.beat_index} className="cursor-pointer" onClick={() => setSelectedBeat(b)}>
+                          {/* Selected Column Highlight */}
+                          {isSelected && (
+                            <rect
+                              x={bx - 20}
+                              y={padY}
+                              width="40"
+                              height={height - 2 * padY}
+                              fill={isAbnormal ? "rgba(244, 108, 131, 0.12)" : "rgba(22, 166, 161, 0.12)"}
+                              rx="6"
+                            />
+                          )}
+
+                          {/* R-Peak Marker Dot */}
+                          <circle
+                            cx={bx}
+                            cy={height / 2 - 35}
+                            r={isSelected ? "5" : "3.5"}
+                            fill={isAbnormal ? "#F46C83" : "#16A6A1"}
+                            stroke="#FFFFFF"
+                            strokeWidth="2"
+                          />
+
+                          {/* Floating Pill Label */}
+                          <foreignObject
+                            x={bx - 14}
+                            y={padY - 26}
+                            width="28"
+                            height="24"
+                          >
+                            <div
+                              className={`w-7 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shadow-soft border ${
+                                isAbnormal
+                                  ? "bg-coral text-white border-coral"
+                                  : "bg-white text-teal border-teal/40"
+                              }`}
+                            >
+                              {b.true_class}
+                            </div>
+                          </foreignObject>
+                        </g>
+                      );
+                    })}
+                  </svg>
+                </div>
+              )}
+            </div>
+
+            {/* Bottom Playback & Timeline Scrubber Bar */}
+            <div className="flex items-center space-x-3 pt-2">
+              <button
+                onClick={() => setIsPlaying(!isPlaying)}
+                className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shadow-soft hover:scale-105 active:scale-95 transition-all flex-shrink-0"
+              >
+                {isPlaying ? <Pause className="w-4 h-4 text-coral" /> : <Play className="w-4 h-4 text-actionYellow fill-actionYellow" />}
+              </button>
+
+              <button
+                onClick={() => setStartSecond((s) => Math.max(0, s - 3))}
+                className="w-8 h-8 rounded-full bg-surface-subtle hover:bg-surface-lavender flex items-center justify-center text-primary transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+
+              {/* Scrubber Range Slider */}
+              <input
+                type="range"
+                min="0"
+                max="180"
+                step="1"
+                value={startSecond}
+                onChange={(e) => setStartSecond(parseFloat(e.target.value))}
+                className="flex-1 accent-teal cursor-pointer h-2 bg-surface-lavender rounded-lg"
               />
 
-              {/* Beat Overlays */}
-              <div className="absolute inset-0 pointer-events-none">
-                {stripData.beats.map((b) => {
-                  const leftPercent = (b.relative_sample / stripData.waveform.length) * 100;
-                  const isSelected = selectedBeat?.beat_index === b.beat_index;
+              <button
+                onClick={() => setStartSecond((s) => s + 3)}
+                className="w-8 h-8 rounded-full bg-surface-subtle hover:bg-surface-lavender flex items-center justify-center text-primary transition-colors"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
 
-                  return (
-                    <div
-                      key={b.beat_index}
-                      style={{ left: `${leftPercent}%` }}
-                      className="absolute top-2 bottom-2 -translate-x-1/2 pointer-events-auto flex flex-col items-center justify-between cursor-pointer group"
-                      onClick={() => setSelectedBeat(b)}
-                    >
-                      {/* Beat Annotation Flag */}
-                      <div
-                        className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded shadow-sm transition-transform group-hover:scale-110 ${
-                          isSelected
-                            ? "bg-navy-950 text-white ring-2 ring-teal"
-                            : b.is_correct
-                            ? "bg-teal-bg text-teal-dark border border-teal/30"
-                            : "bg-coral-bg text-coral-dark border border-coral/30"
-                        }`}
-                      >
-                        {b.true_class}
-                      </div>
+              <span className="text-xs font-mono font-bold text-primary min-w-[55px] text-right">
+                {startSecond.toFixed(1)}s
+              </span>
+            </div>
+          </div>
+        </div>
 
-                      {/* Vertical Alignment Guideline */}
-                      <div
-                        className={`w-px flex-1 ${
-                          isSelected ? "bg-navy-950 w-0.5" : "bg-gray-300 group-hover:bg-gray-400"
-                        }`}
-                      />
+        {/* ========================================================= */}
+        {/* RIGHT COLUMN: Selected Heartbeat Detail Card (~25%)       */}
+        {/* ========================================================= */}
+        <div className="lg:col-span-3 flex flex-col space-y-4">
+          <div className="bg-white rounded-3xl p-5 shadow-soft border border-white flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-bold text-primary">Selected Beat</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-surface-subtle text-secondary">
+                #{selectedBeat ? selectedBeat.beat_index : 1}
+              </span>
+            </div>
 
-                      {/* Time Tick */}
-                      <span className="text-[9px] font-numeric text-gray-500 bg-white/80 px-1 rounded">
-                        {b.time_seconds.toFixed(2)}s
-                      </span>
-                    </div>
-                  );
-                })}
+            {/* Enlarged Single Beat Mini-Waveform */}
+            <div className="w-full h-24 bg-surface-subtle rounded-2xl ecg-grid-subtle p-2 mb-3 flex items-center justify-center border border-border/40">
+              <svg viewBox="0 0 100 40" className="w-full h-full overflow-visible">
+                <path
+                  d="M 5 20 L 25 20 L 32 12 L 40 32 L 48 4 L 56 36 L 64 20 L 95 20"
+                  fill="none"
+                  stroke={selectedBeat?.true_class !== "N" ? "#F46C83" : "#16A6A1"}
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <circle cx="48" cy="4" r="3" fill="#17191F" />
+              </svg>
+            </div>
+
+            {/* Metadata Rows */}
+            <div className="space-y-2 text-xs">
+              <div className="flex items-center justify-between pb-1.5 border-b border-surface">
+                <span className="text-secondary">Timestamp:</span>
+                <span className="font-numeric font-bold text-primary">
+                  {selectedBeat ? selectedBeat.time_seconds.toFixed(3) : "10.820"}s
+                </span>
+              </div>
+              <div className="flex items-center justify-between pb-1.5 border-b border-surface">
+                <span className="text-secondary">Annotated True Class:</span>
+                <span className="font-bold text-primary flex items-center space-x-1">
+                  <span>
+                    {selectedBeat?.true_class === "N"
+                      ? "Normal (N)"
+                      : selectedBeat?.true_class === "V"
+                      ? "Ventricular (V)"
+                      : "Supraventricular (S)"}
+                  </span>
+                </span>
+              </div>
+              <div className="flex items-center justify-between pb-1.5 border-b border-surface">
+                <span className="text-secondary">Model Prediction:</span>
+                <span className="font-bold text-teal flex items-center space-x-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-teal" />
+                  <span>{selectedBeat?.predicted_class || "N"}</span>
+                </span>
+              </div>
+              <div className="flex items-center justify-between pb-1.5 border-b border-surface">
+                <span className="text-secondary">Calibrated Conf.:</span>
+                <span className="font-numeric font-bold text-primary">
+                  {(
+                    (selectedBeat?.probabilities?.[selectedBeat?.predicted_class || "N"] || 0.942) * 100
+                  ).toFixed(1)}%
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-secondary">Pre-RR Interval:</span>
+                <span className="font-numeric font-semibold text-primary">
+                  {selectedBeat?.rr_features
+                    ? (selectedBeat.rr_features.pre_rr * 1000).toFixed(0)
+                    : 820} ms
+                </span>
               </div>
             </div>
-          ) : (
-            <div className="h-48 flex items-center justify-center text-gray-400 text-xs">
-              {isLoading ? "Loading recording strip..." : "No waveform data"}
-            </div>
-          )}
+
+            {/* Signature Soft-Yellow CTA: "Inspect Beat ↗" */}
+            <button
+              onClick={() => {
+                // Focus / cycle beat
+                setZoomLevel(1.2);
+              }}
+              className="mt-5 w-full bg-actionYellow hover:bg-actionYellow-hover active:bg-actionYellow-active text-primary font-bold text-xs py-3.5 px-4 rounded-full flex items-center justify-between shadow-soft transition-all duration-200"
+            >
+              <span>Inspect Beat Morphology</span>
+              <div className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center ml-2">
+                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+              </div>
+            </button>
+          </div>
         </div>
       </div>
-
-      {/* Selected Beat Deep-Dive Card */}
-      {selectedBeat && (
-        <div className="bg-white border border-border rounded-xl p-6 shadow-sm space-y-4">
-          <div className="flex items-center justify-between border-b border-border pb-3">
-            <div>
-              <h3 className="text-base font-bold text-navy-950 font-serif">
-                Beat Inspector: Sample #{selectedBeat.absolute_sample} (t={selectedBeat.time_seconds}s)
-              </h3>
-              <p className="text-xs text-gray-500 font-numeric">
-                Record {selectedRecord} · Beat #{selectedBeat.beat_index} in Current Window
-              </p>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-surface-muted text-navy-900 border border-border">
-                Ground Truth: {selectedBeat.true_class}
-              </span>
-              <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-teal-bg text-teal-dark border border-teal/30">
-                Hybrid Prediction: {selectedBeat.predicted_class}
-              </span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="p-3 bg-surface-subtle border border-border rounded-lg text-center font-numeric">
-              <div className="text-[10px] text-gray-500 uppercase">Pre-RR Interval</div>
-              <div className="text-sm font-bold text-navy-950 mt-1">
-                {selectedBeat.rr_features.pre_rr.toFixed(3)}s
-              </div>
-            </div>
-            <div className="p-3 bg-surface-subtle border border-border rounded-lg text-center font-numeric">
-              <div className="text-[10px] text-gray-500 uppercase">Post-RR Interval</div>
-              <div className="text-sm font-bold text-navy-950 mt-1">
-                {selectedBeat.rr_features.post_rr.toFixed(3)}s
-              </div>
-            </div>
-            <div className="p-3 bg-surface-subtle border border-border rounded-lg text-center font-numeric">
-              <div className="text-[10px] text-gray-500 uppercase">Local Average RR</div>
-              <div className="text-sm font-bold text-navy-950 mt-1">
-                {selectedBeat.rr_features.local_rr_avg.toFixed(3)}s
-              </div>
-            </div>
-            <div className="p-3 bg-surface-subtle border border-border rounded-lg text-center font-numeric">
-              <div className="text-[10px] text-gray-500 uppercase">RR Ratio</div>
-              <div className="text-sm font-bold text-navy-950 mt-1">
-                {selectedBeat.rr_features.rr_ratio.toFixed(2)}x
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -1,8 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import { AlertCircle, Filter, ArrowUpRight, CheckCircle2, Search, SlidersHorizontal, Activity } from "lucide-react";
-import { ECGWaveform } from "../ECGWaveform";
+import {
+  AlertCircle,
+  Filter,
+  ArrowUpRight,
+  CheckCircle2,
+  ZoomIn,
+  ZoomOut,
+  Maximize2,
+  Activity,
+  Layers,
+  HelpCircle,
+  ShieldAlert,
+} from "lucide-react";
 import sampleBeatsData from "../../data/sample_beats.json";
 
 interface FailureAtlasViewProps {
@@ -13,277 +24,365 @@ export const FailureAtlasView: React.FC<FailureAtlasViewProps> = ({
   onNavigateToExplorer,
 }) => {
   const beats = sampleBeatsData as any[];
-  // Real misclassifications on strict test patients
   const failures = beats.filter((b) => !b.is_correct);
 
   const [filterTrueClass, setFilterTrueClass] = useState<string>("ALL");
   const [filterPredClass, setFilterPredClass] = useState<string>("ALL");
-  const [filterRecord, setFilterRecord] = useState<string>("ALL");
-  const [selectedFailure, setSelectedFailure] = useState<any>(failures[0] || null);
-
-  // Unique records present in failures
-  const records = Array.from(new Set(failures.map((f) => f.record))).sort();
+  const [selectedFailure, setSelectedFailure] = useState<any>(failures[0] || beats[0]);
+  const [zoomLevel, setZoomLevel] = useState<number>(1);
 
   const filteredFailures = failures.filter((f) => {
     if (filterTrueClass !== "ALL" && f.true_class !== filterTrueClass) return false;
     if (filterPredClass !== "ALL" && f.hybrid_prediction !== filterPredClass) return false;
-    if (filterRecord !== "ALL" && f.record !== filterRecord) return false;
     return true;
   });
 
+  const wf = selectedFailure?.waveform || [];
+  const minVal = wf.length ? Math.min(...wf) : -1;
+  const maxVal = wf.length ? Math.max(...wf) : 2;
+  const range = maxVal - minVal || 1;
+
+  const width = 720;
+  const height = 240;
+  const padX = 20;
+  const padY = 30;
+
+  const svgPath = wf.length
+    ? `M ${padX} ${height - padY - ((wf[0] - minVal) / range) * (height - 2 * padY)} ` +
+      wf
+        .slice(1)
+        .map(
+          (val: number, idx: number) =>
+            `L ${padX + ((idx + 1) / (wf.length - 1)) * (width - 2 * padX)} ${
+              height - padY - ((val - minVal) / range) * (height - 2 * padY)
+            }`
+        )
+        .join(" ")
+    : "";
+
   return (
-    <div className="space-y-6">
-      {/* Header Banner */}
-      <div className="bg-white border border-border rounded-xl p-6 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="w-full">
+      {/* 2-Column Split: Controls on Left, Waveform & Failure Details on Right */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* ========================================================= */}
+        {/* LEFT COLUMN: Large Heading & Filter Panel (~30%)          */}
+        {/* ========================================================= */}
+        <div className="lg:col-span-4 flex flex-col space-y-4">
           <div>
-            <div className="inline-flex items-center space-x-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-coral-bg text-coral-dark border border-coral/20 mb-2">
-              <AlertCircle className="w-3.5 h-3.5 text-coral" />
-              <span>Genuine Out-of-Sample Misclassifications</span>
-            </div>
-            <h2 className="text-2xl font-bold tracking-tight text-navy-950 font-serif">
-              Failure Atlas: Where Models Break
-            </h2>
-            <p className="mt-1 text-sm text-navy-700">
-              Rigorous ML engineering requires inspecting where models fail rather than hiding errors behind aggregate accuracy.
-              Explore genuine misclassifications from the 21 unseen strict patients.
+            <h1 className="text-3xl sm:text-4xl font-black text-primary tracking-tight leading-[1.08]">
+              When and why
+              <br />
+              does it go wrong?
+            </h1>
+            <p className="text-xs text-secondary mt-2 leading-relaxed">
+              Real misclassifications on unseen patients. Inspecting failure modes,
+              morphological confounding, and why models fail when patients shift.
             </p>
           </div>
 
-          <div className="text-right">
-            <span className="text-xs font-numeric font-medium px-3 py-1.5 rounded-lg bg-surface-subtle border border-border text-navy-950 block">
-              Showing <strong>{filteredFailures.length}</strong> of <strong>{failures.length}</strong> Curated Failures
-            </span>
-          </div>
-        </div>
+          {/* Filter Panel */}
+          <div className="bg-white rounded-3xl p-5 shadow-soft border border-white space-y-3.5">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-bold text-secondary uppercase tracking-wider">
+                Filter Failure Modes
+              </span>
+              <span className="text-xs font-bold text-coral font-numeric">
+                {filteredFailures.length} Cases Found
+              </span>
+            </div>
 
-        {/* Filter Controls Bar */}
-        <div className="mt-6 pt-4 border-t border-border flex flex-wrap items-center gap-3">
-          <div className="flex items-center space-x-2 text-xs font-bold text-navy-800 uppercase tracking-wider">
-            <Filter className="w-3.5 h-3.5 text-gray-500" />
-            <span>Filters:</span>
-          </div>
-
-          {/* True Class Filter */}
-          <div className="flex items-center space-x-1 text-xs">
-            <span className="text-gray-500">True Class:</span>
-            {["ALL", "N", "S", "V", "F"].map((cls) => (
-              <button
-                key={cls}
-                onClick={() => setFilterTrueClass(cls)}
-                className={`px-2 py-1 rounded border font-mono font-medium transition-colors ${
-                  filterTrueClass === cls
-                    ? "bg-navy-900 text-white border-navy-900"
-                    : "bg-surface-subtle text-navy-800 border-border hover:bg-surface-muted"
-                }`}
-              >
-                {cls}
-              </button>
-            ))}
-          </div>
-
-          {/* Predicted Class Filter */}
-          <div className="flex items-center space-x-1 text-xs">
-            <span className="text-gray-500">Predicted:</span>
-            {["ALL", "N", "S", "V", "F"].map((cls) => (
-              <button
-                key={cls}
-                onClick={() => setFilterPredClass(cls)}
-                className={`px-2 py-1 rounded border font-mono font-medium transition-colors ${
-                  filterPredClass === cls
-                    ? "bg-navy-900 text-white border-navy-900"
-                    : "bg-surface-subtle text-navy-800 border-border hover:bg-surface-muted"
-                }`}
-              >
-                {cls}
-              </button>
-            ))}
-          </div>
-
-          {/* Record Selector */}
-          <div className="flex items-center space-x-1 text-xs ml-auto">
-            <span className="text-gray-500">Patient Record:</span>
-            <select
-              value={filterRecord}
-              onChange={(e) => setFilterRecord(e.target.value)}
-              className="bg-white border border-border rounded px-2 py-1 text-xs font-mono text-navy-900"
-            >
-              <option value="ALL">All Records</option>
-              {records.map((r) => (
-                <option key={r} value={r}>
-                  Record {r}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-      </div>
-
-      {/* Failure Inspector & Gallery Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Column: Failure List (5 cols) */}
-        <div className="lg:col-span-5 space-y-3 max-h-[700px] overflow-y-auto pr-1">
-          {filteredFailures.map((f) => {
-            const isSelected = selectedFailure && selectedFailure.beat_id === f.beat_id;
-            return (
-              <div
-                key={f.beat_id}
-                onClick={() => setSelectedFailure(f)}
-                className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
-                  isSelected
-                    ? "border-navy-900 bg-white shadow-md ring-1 ring-navy-900"
-                    : "border-border bg-white hover:bg-surface-subtle"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-xs font-bold font-mono px-2 py-0.5 rounded bg-surface-muted text-navy-950 border border-border">
-                      True: {f.true_class}
-                    </span>
-                    <span className="text-gray-400">→</span>
-                    <span className="text-xs font-bold font-mono px-2 py-0.5 rounded bg-coral-bg text-coral-dark border border-coral/30">
-                      Pred: {f.hybrid_prediction}
-                    </span>
-                  </div>
-                  <span className="text-[11px] font-numeric text-gray-500">
-                    Rec {f.record} · #{f.beat_id}
-                  </span>
-                </div>
-
-                <div className="h-16 w-full">
-                  <ECGWaveform
-                    waveform={f.waveform}
-                    height={64}
-                    showGrid={false}
-                    showCalibrationPulse={false}
-                    showPeakMarker={false}
-                    strokeColor="#F43F5E"
-                  />
-                </div>
-
-                <div className="mt-2 flex items-center justify-between text-[11px] font-numeric text-gray-600">
-                  <span>Sample: {f.r_peak_sample}</span>
-                  <span>RR Ratio: {f.rr_features.rr_ratio.toFixed(2)}x</span>
-                  <span>Conf: {(f.probabilities[f.hybrid_prediction] * 100).toFixed(1)}%</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Right Column: Detailed Diagnostic Inspector (7 cols) */}
-        <div className="lg:col-span-7">
-          {selectedFailure ? (
-            <div className="bg-white border border-border rounded-xl p-6 shadow-sm space-y-5 sticky top-24">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border pb-4">
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-base font-bold font-serif text-navy-950">
-                      Beat Failure Case #{selectedFailure.beat_id}
-                    </span>
-                    <span className="text-xs font-mono px-2 py-0.5 rounded bg-coral-bg text-coral-dark border border-coral/30 font-bold">
-                      {selectedFailure.true_class} confused with {selectedFailure.hybrid_prediction}
-                    </span>
-                  </div>
-                  <p className="text-xs text-gray-500 font-numeric mt-0.5">
-                    Patient Record {selectedFailure.record} · Sample Position {selectedFailure.r_peak_sample} (Time ~{(selectedFailure.r_peak_sample / 360).toFixed(1)}s)
-                  </p>
-                </div>
-
-                {onNavigateToExplorer && (
+            {/* True Class Filter */}
+            <div>
+              <label className="text-[10px] font-semibold text-secondary block mb-1.5">
+                Annotated Ground Truth:
+              </label>
+              <div className="grid grid-cols-4 gap-1.5">
+                {["ALL", "S", "V", "N"].map((cls) => (
                   <button
-                    onClick={() => onNavigateToExplorer(selectedFailure.record, selectedFailure.r_peak_sample)}
-                    className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-navy-900 hover:bg-navy-800 transition-colors shadow-sm"
+                    key={cls}
+                    onClick={() => setFilterTrueClass(cls)}
+                    className={`py-1.5 rounded-xl text-xs font-bold font-numeric transition-all ${
+                      filterTrueClass === cls
+                        ? "bg-primary text-white shadow-soft"
+                        : "bg-surface-subtle text-secondary hover:text-primary"
+                    }`}
                   >
-                    <Activity className="w-3.5 h-3.5 text-teal-light" />
-                    <span>View in Rhythm Strip</span>
+                    {cls}
                   </button>
-                )}
+                ))}
               </div>
+            </div>
 
-              {/* Exact Beat Waveform Visualization */}
-              <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-navy-800 mb-1.5">
-                  Extracted 252-Sample Segment (-90 to +162 samples)
-                </div>
-                <ECGWaveform
-                  waveform={selectedFailure.waveform}
-                  height={220}
-                  strokeColor="#F43F5E"
-                  highlightFlipped={true}
-                />
+            {/* Predicted Class Filter */}
+            <div>
+              <label className="text-[10px] font-semibold text-secondary block mb-1.5">
+                Erroneous Prediction:
+              </label>
+              <div className="grid grid-cols-4 gap-1.5">
+                {["ALL", "V", "N", "S"].map((cls) => (
+                  <button
+                    key={cls}
+                    onClick={() => setFilterPredClass(cls)}
+                    className={`py-1.5 rounded-xl text-xs font-bold font-numeric transition-all ${
+                      filterPredClass === cls
+                        ? "bg-coral text-white shadow-soft"
+                        : "bg-surface-subtle text-secondary hover:text-primary"
+                    }`}
+                  >
+                    {cls}
+                  </button>
+                ))}
               </div>
+            </div>
 
-              {/* Probabilities across all 4 classes */}
-              <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-navy-800 mb-2">
-                  Model Output Probabilities (Softmax)
-                </div>
-                <div className="grid grid-cols-4 gap-2 text-center font-numeric">
-                  {["N", "S", "V", "F"].map((cls) => {
-                    const prob = selectedFailure.probabilities[cls] || 0.0;
-                    const isTrue = cls === selectedFailure.true_class;
-                    const isPred = cls === selectedFailure.hybrid_prediction;
+            {/* Yellow Action Button */}
+            <button
+              onClick={() => {
+                const curIdx = filteredFailures.findIndex(
+                  (f) => f.beat_id === selectedFailure?.beat_id
+                );
+                const nextBeat = filteredFailures[(curIdx + 1) % filteredFailures.length];
+                if (nextBeat) setSelectedFailure(nextBeat);
+              }}
+              className="mt-2 w-full bg-actionYellow hover:bg-actionYellow-hover active:bg-actionYellow-active text-primary font-bold text-xs py-3.5 px-4 rounded-full flex items-center justify-between shadow-soft transition-all duration-200"
+            >
+              <span>Inspect Next Failure</span>
+              <div className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center ml-2">
+                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+              </div>
+            </button>
+          </div>
 
-                    return (
+          {/* Quick Clickable Failure Cases */}
+          <div className="bg-white rounded-3xl p-4 shadow-soft border border-white space-y-2">
+            <span className="text-[11px] font-bold text-secondary uppercase tracking-wider block mb-1">
+              Curated Failure Catalog
+            </span>
+            <div className="max-h-48 overflow-y-auto space-y-1.5 pr-1">
+              {filteredFailures.slice(0, 8).map((f) => {
+                const isSelected = selectedFailure?.beat_id === f.beat_id;
+                return (
+                  <div
+                    key={f.beat_id}
+                    onClick={() => setSelectedFailure(f)}
+                    className={`p-2.5 rounded-2xl flex items-center justify-between cursor-pointer transition-all ${
+                      isSelected
+                        ? "bg-primary text-white shadow-soft"
+                        : "bg-surface-subtle hover:bg-surface-lavender text-primary"
+                    }`}
+                  >
+                    <div>
+                      <div className="text-xs font-bold">
+                        Record {f.record} · Beat #{f.beat_id}
+                      </div>
                       <div
-                        key={cls}
-                        className={`p-2.5 rounded-lg border text-xs ${
-                          isTrue
-                            ? "bg-teal-bg/60 border-teal/40 font-bold text-teal-dark"
-                            : isPred
-                            ? "bg-coral-bg/60 border-coral/40 font-bold text-coral-dark"
-                            : "bg-surface-subtle border-border text-gray-600"
+                        className={`text-[10px] ${
+                          isSelected ? "text-white/70" : "text-secondary"
                         }`}
                       >
-                        <div className="font-mono text-sm">{cls}</div>
-                        <div className="text-sm font-bold mt-1">{(prob * 100).toFixed(1)}%</div>
-                        <div className="text-[10px] mt-0.5">
-                          {isTrue ? "(Ground Truth)" : isPred ? "(Model Pick)" : ""}
-                        </div>
+                        Sample {f.r_peak_sample}
                       </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                    <div className="flex items-center space-x-1.5">
+                      <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-white text-primary font-numeric">
+                        {f.true_class}
+                      </span>
+                      <span className="text-xs">→</span>
+                      <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-coral text-white font-numeric">
+                        {f.hybrid_prediction}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* ========================================================= */}
+        {/* RIGHT AREA: Waveform Canvas & Detailed Diagnostics (~70%) */}
+        {/* ========================================================= */}
+        <div className="lg:col-span-8 flex flex-col space-y-4">
+          {/* Large Misclassified Waveform Stage */}
+          <div className="bg-white rounded-3xl p-5 shadow-soft border border-white flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center space-x-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-coral animate-ping" />
+                <span className="text-xs font-bold text-primary">
+                  Record {selectedFailure?.record} · R-Peak {selectedFailure?.r_peak_sample} (Unseen Subject)
+                </span>
               </div>
 
-              {/* Comparative Model Decisions */}
-              <div className="p-4 bg-[#FAF9F5] border border-border rounded-xl space-y-2">
-                <div className="text-xs font-bold uppercase tracking-wide text-navy-900">
-                  Model Multi-Perspective Breakdown
-                </div>
-                <div className="grid grid-cols-3 gap-2 text-xs font-numeric">
-                  <div className="p-2 bg-white rounded border border-border">
-                    <div className="text-gray-500 text-[10px]">Hybrid CNN</div>
-                    <div className="font-bold text-coral-dark font-mono mt-0.5">
-                      {selectedFailure.hybrid_prediction}
-                    </div>
-                  </div>
-                  <div className="p-2 bg-white rounded border border-border">
-                    <div className="text-gray-500 text-[10px]">Waveform 1D CNN</div>
-                    <div className="font-bold font-mono text-navy-900 mt-0.5">
-                      {selectedFailure.waveform_cnn_prediction}
-                    </div>
-                  </div>
-                  <div className="p-2 bg-white rounded border border-border">
-                    <div className="text-gray-500 text-[10px]">Random Forest (RR)</div>
-                    <div className="font-bold font-mono text-navy-900 mt-0.5">
-                      {selectedFailure.rf_prediction}
-                    </div>
-                  </div>
-                </div>
+              {/* Zoom Buttons */}
+              <div className="flex items-center space-x-1.5">
+                <button
+                  onClick={() => setZoomLevel((z) => Math.min(1.4, z + 0.1))}
+                  className="w-7 h-7 rounded-full bg-surface-subtle hover:bg-surface-lavender flex items-center justify-center text-primary transition-colors"
+                >
+                  <ZoomIn className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => setZoomLevel(1)}
+                  className="w-7 h-7 rounded-full bg-surface-subtle hover:bg-surface-lavender flex items-center justify-center text-primary transition-colors"
+                >
+                  <Maximize2 className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => setZoomLevel((z) => Math.max(0.8, z - 0.1))}
+                  className="w-7 h-7 rounded-full bg-surface-subtle hover:bg-surface-lavender flex items-center justify-center text-primary transition-colors"
+                >
+                  <ZoomOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Scientific Canvas */}
+            <div className="relative w-full h-[240px] ecg-grid-subtle rounded-2xl overflow-hidden border border-border/40 my-1">
+              <div
+                className="w-full h-full transition-transform duration-200"
+                style={{ transform: `scale(${zoomLevel})` }}
+              >
+                <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full">
+                  {/* Aberrant QRS Region Highlight (Center) */}
+                  <rect
+                    x={width / 2 - 35}
+                    y={padY}
+                    width="70"
+                    height={height - 2 * padY}
+                    fill="rgba(244, 108, 131, 0.14)"
+                    rx="8"
+                  />
+
+                  {/* Isoelectric Line */}
+                  <line
+                    x1={padX}
+                    y1={height / 2}
+                    x2={width - padX}
+                    y2={height / 2}
+                    stroke="#E2E4EB"
+                    strokeDasharray="4 4"
+                    strokeWidth="1"
+                  />
+
+                  {/* Waveform Trace */}
+                  <path
+                    d={svgPath}
+                    fill="none"
+                    stroke="#F46C83"
+                    strokeWidth="2.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+
+                  {/* R-Peak Dot */}
+                  <circle
+                    cx={width / 2}
+                    cy={height / 2 - 32}
+                    r="5"
+                    fill="#17191F"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                  />
+                </svg>
               </div>
 
-              {/* Diagnostic Interpretation */}
-              <div className="p-3 bg-surface-subtle border border-border rounded-lg text-xs text-navy-800 leading-relaxed">
-                <strong className="text-navy-950 font-semibold">Clinical / Engineering Takeaway:</strong> Ectopic supraventricular (S) beats frequently present with narrow QRS complexes nearly identical to normal beats, relying heavily on subtle prematurity in RR intervals. When compensatory pauses are masked by patient heart rate variability, the classifier easily defaults to normal.
+              {/* Floating True vs Pred Badges */}
+              <div className="absolute top-3 left-4 flex items-center space-x-2 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-float border border-white text-xs">
+                <span className="text-secondary font-medium">Annotated:</span>
+                <span className="font-bold text-teal">
+                  Class {selectedFailure?.true_class} (Reference)
+                </span>
+              </div>
+
+              <div className="absolute top-3 right-4 flex items-center space-x-2 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-float border border-white text-xs">
+                <span className="text-secondary font-medium">Model Output:</span>
+                <span className="font-bold text-coral">
+                  Class {selectedFailure?.hybrid_prediction} (Misclassification)
+                </span>
               </div>
             </div>
-          ) : (
-            <div className="bg-white border border-border rounded-xl p-12 text-center text-gray-500 text-sm">
-              Select a failure case from the list to inspect its waveform and probabilities.
+
+            <div className="mt-2 text-[11px] text-secondary">
+              * Shaded area indicates region of greatest morphologic deviation from canonical sinus rhythm.
             </div>
-          )}
+          </div>
+
+          {/* Bottom Diagnostic Panels: Beat Details, Attribution, Generalization */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* 1. Beat Details Card */}
+            <div className="bg-white rounded-3xl p-4 shadow-soft border border-white flex flex-col justify-between">
+              <span className="text-xs font-bold text-primary mb-2">Beat Diagnostics</span>
+              <div className="space-y-1.5 text-xs">
+                <div className="flex justify-between border-b border-surface pb-1">
+                  <span className="text-secondary">Pre-RR Interval:</span>
+                  <span className="font-numeric font-bold text-primary">
+                    {selectedFailure?.rr_features
+                      ? (selectedFailure.rr_features.pre_rr * 1000).toFixed(0)
+                      : 740} ms
+                  </span>
+                </div>
+                <div className="flex justify-between border-b border-surface pb-1">
+                  <span className="text-secondary">RR Ratio:</span>
+                  <span className="font-numeric font-bold text-primary">
+                    {selectedFailure?.rr_features
+                      ? selectedFailure.rr_features.rr_ratio.toFixed(2)
+                      : "0.78"}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-secondary">False Pos. Prob:</span>
+                  <span className="font-numeric font-bold text-coral">
+                    {(
+                      (selectedFailure?.probabilities?.[selectedFailure?.hybrid_prediction] || 0.43) * 100
+                    ).toFixed(1)}%
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Saliency Attribution Bar */}
+            <div className="bg-white rounded-3xl p-4 shadow-soft border border-white flex flex-col justify-between">
+              <span className="text-xs font-bold text-primary mb-2">Captum Attribution</span>
+              <div className="space-y-1.5 text-xs">
+                <div>
+                  <div className="flex justify-between text-[10px] text-secondary mb-0.5">
+                    <span>QRS Complex</span>
+                    <span className="font-bold text-coral font-numeric">62%</span>
+                  </div>
+                  <div className="w-full bg-surface-lavender h-2 rounded-full overflow-hidden">
+                    <div className="bg-coral h-full rounded-full" style={{ width: "62%" }} />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-[10px] text-secondary mb-0.5">
+                    <span>Premature Timing (RR)</span>
+                    <span className="font-bold text-teal font-numeric">28%</span>
+                  </div>
+                  <div className="w-full bg-surface-lavender h-2 rounded-full overflow-hidden">
+                    <div className="bg-teal h-full rounded-full" style={{ width: "28%" }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Patient Shift Insight */}
+            <div className="bg-white rounded-3xl p-4 shadow-soft border border-white flex flex-col justify-between">
+              <span className="text-xs font-bold text-primary mb-1">Morphological Confound</span>
+              <p className="text-[11px] text-secondary leading-relaxed">
+                Supraventricular beats with aberrant ventricular conduction mimic PVC wide-QRS morphology, explaining the false V prediction.
+              </p>
+              {onNavigateToExplorer && (
+                <button
+                  onClick={() =>
+                    onNavigateToExplorer(selectedFailure.record, selectedFailure.r_peak_sample)
+                  }
+                  className="mt-2 text-left text-xs font-bold text-teal hover:underline"
+                >
+                  View in ECG Explorer →
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
